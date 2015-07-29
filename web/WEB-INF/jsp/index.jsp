@@ -10,9 +10,8 @@
 
     <body>
         <p><b>Antero Oikkosen tankkitietokantaprojekti</b> <br>(Aineopintojen harjoitustyö: Tietokantasovellus (loppukesä))</p>
-        <p>Linkki projektin github sivulle <a href="https://github.com/antero71/tankkitietokanta">tankkitietokanta</a>
+        <p>Linkki projektin github sivulle <a href="https://github.com/antero71/tankkitietokanta">tankkitietokanta</a></p>
         <p>Linkki ConnectionTest työkaluun josta voi tarkkailla kulloinkin voimassaolevaa<br>
-            tietokantaa <a href="http://t-anoi.users.cs.helsinki.fi/ConnectionTest/">ConnectionTest</a>
-        </p>
+        tietokantaa <a href="http://t-anoi.users.cs.helsinki.fi/ConnectionTest/">ConnectionTest</a></p>
     </body>
 </html>
