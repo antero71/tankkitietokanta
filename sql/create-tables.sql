@@ -6,8 +6,8 @@ salasana varchar(80));
 create table tankki (
 uid int,
 nimi varchar(100),
-tyyppi varhchar(100),
-tykki vharchar(50),
+tyyppi varchar(100),
+tykki varchar(50),
 pituus int,
 leveys int,
 korkeus int,
@@ -18,8 +18,8 @@ torni_etu int,
 torni_sivu int,
 torni_taka int,
 paino int,
-varchar(50) moottori,
-int teho
+moottori varchar(50),
+teho int,
 lisatietoja varchar(512));
 
 create table valmistaja (
