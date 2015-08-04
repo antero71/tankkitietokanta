@@ -13,5 +13,6 @@
         <p>Linkki projektin github sivulle <a href="https://github.com/antero71/tankkitietokanta">tankkitietokanta</a></p>
         <p>Linkki ConnectionTest työkaluun josta voi tarkkailla kulloinkin voimassaolevaa<br>
         tietokantaa <a href="http://t-anoi.users.cs.helsinki.fi/ConnectionTest/">ConnectionTest</a></p>
+        <p>Sovelluksen <a href="http://localhost:8080/Tankkitietokanta3/html-demo/etusivu.html">demo html sivut</p>
     </body>
 </html>
