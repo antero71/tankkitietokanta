@@ -7,20 +7,27 @@ package com.antero.tankkitietokanta.servlet;
 
 import com.antero.tankkitietokanta.db.KayttajaDao;
 import com.antero.tankkitietokanta.db.KayttajaDaoImpl;
+import com.antero.tankkitietokanta.db.TietokantaYhteys;
 import com.antero.tankkitietokanta.model.Kayttaja;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import util.MyLogger;
 
 /**
  *
  * @author Antero Oikkonen
  */
 public class LoginServlet extends HttpServlet {
+
+    private static Logger logger = MyLogger.getLogger(LoginServlet.class.getName());
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,27 +40,41 @@ public class LoginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
 
+            /* TODO output your page here. You may use following sample code. */
             String salasana = request.getParameter("password");
             String tunnus = request.getParameter("username");
 
-            KayttajaDao kayttaja = new KayttajaDaoImpl();
-            Kayttaja k = kayttaja.haeKayttaja(tunnus);
-            
+            logger.info("sivulta salasana " + salasana);
+            logger.info("sivulta tunnus " + tunnus);
+            Kayttaja k = null;
+            if (tunnus != null && salasana != null) {
+
+                try {
+
+                    KayttajaDao kayttaja = new KayttajaDaoImpl();
+                    k = kayttaja.haeKayttaja(tunnus);
+                } catch (Exception e) {
+                    logger.log(Level.SEVERE, "Tietokantavirhe", e);
+                }
+                logger.info("kayttaja " + k);
+            }
             /* Tarkistetaan onko parametrina saatu oikeat tunnukset */
-            if (k.getNimi().equals(tunnus) && k.getSalanasa().equals(salasana)) {
+            if (k != null && k.getTunnus() != null && k.getSalanasa() != null && k.getTunnus().equals(tunnus) && k.getSalanasa().equals(salasana)) {
                 /* Jos tunnus on oikea, ohjataan käyttäjä HTTP-ohjauksella kissalistaan. */
                 response.sendRedirect("kissalista");
             } else {
+                logger.info("kayttaja " + k + ", login.jsp seuraavaksi");
                 /* Väärän tunnuksen syöttänyt saa eteensä kirjautumislomakkeen.
-                 * Tässä käytetään omassa kirjastotiedostossa määriteltyä näkymännäyttöfunktioita */
+                 */
                 RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
                 /* Pyydetään dispatcher-oliota näyttämään JSP-sivunsa */
                 dispatcher.forward(request, response);
             }
+            logger.info("tänne ei pitäis mennä");
         }
     }
 

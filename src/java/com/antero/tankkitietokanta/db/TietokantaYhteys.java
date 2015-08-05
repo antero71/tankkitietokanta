@@ -5,13 +5,16 @@
  */
 package com.antero.tankkitietokanta.db;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+import util.MyLogger;
 
 /**
  *
@@ -19,19 +22,27 @@ import javax.sql.DataSource;
  */
 public class TietokantaYhteys {
 
+    private static Logger logger = MyLogger.getLogger(TietokantaYhteys.class.getName());
+
     public static Connection annaYhteys() {
+       
         try {
             InitialContext cxt = new InitialContext();
+            logger.info("seuraavaksi ctx.lookup");
             DataSource yhteysVarasto = (DataSource) cxt.lookup("java:/comp/env/jdbc/tietokanta");
             try {
                 return yhteysVarasto.getConnection();
                 //return yhteysVarasto;
             } catch (SQLException ex) {
-                Logger.getLogger(TietokantaYhteys.class.getName()).log(Level.SEVERE, null, ex);
+                logger.log(Level.SEVERE, null, ex);
+                logger.severe("SQLException " + ex.getCause());
             }
         } catch (NamingException ex) {
-            Logger.getLogger(TietokantaYhteys.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
+            logger.severe("NamingException " + ex.getCause());
         }
+        logger.info("seuraavaksi return null");
+
         return null;
     }
 }

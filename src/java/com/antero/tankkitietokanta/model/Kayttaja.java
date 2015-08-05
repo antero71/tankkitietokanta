@@ -11,11 +11,20 @@ package com.antero.tankkitietokanta.model;
  */
 public class Kayttaja {
     private String nimi;
+    private String tunnus;
     private String salanasa;
 
-    public Kayttaja(String nimi, String salasana) {
-        this.nimi=nimi;
+    public Kayttaja(String tunnus, String salasana) {
+        this.tunnus=tunnus;
         this.salanasa=salasana;
+    }
+
+    public String getTunnus() {
+        return tunnus;
+    }
+
+    public void setTunnus(String tunnus) {
+        this.tunnus = tunnus;
     }
 
     public String getNimi() {
@@ -32,6 +41,11 @@ public class Kayttaja {
 
     public void setSalanasa(String salanasa) {
         this.salanasa = salanasa;
+    }
+
+    @Override
+    public String toString() {
+        return "tunnus "+tunnus+" salasana "+salanasa;
     }
     
     
