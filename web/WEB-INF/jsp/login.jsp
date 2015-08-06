@@ -9,10 +9,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Sisäänkirjautuminen</title>
     </head>
     <body>
-        <form action="LoginServlet" method="POST">
+        <form action="login" method="POST">
             Käyttäjänimi: <input type="text" name="username" />
             Salasana: <input type="password" name="password" />
             <button type="submit">Kirjaudu</button>

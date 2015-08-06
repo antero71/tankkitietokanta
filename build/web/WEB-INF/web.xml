@@ -20,6 +20,10 @@
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>com.antero.tankkitietokanta.servlet.LoginServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EtusivuServlet</servlet-name>
+        <servlet-class>com.antero.tankkitietokanta.servlet.EtusivuServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>*.htm</url-pattern>
@@ -30,7 +34,11 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
-        <url-pattern>/LoginServlet</url-pattern>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EtusivuServlet</servlet-name>
+        <url-pattern>/EtusivuServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
