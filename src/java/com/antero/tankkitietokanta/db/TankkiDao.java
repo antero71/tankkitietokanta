@@ -15,5 +15,6 @@ import java.util.Collection;
 public interface TankkiDao {
     public Collection<Tankki> haeTankit();
     public Tankki haeTankki(String nimi);
+    public Tankki haeTankki(int id);
     
 }

@@ -12,18 +12,22 @@ import com.antero.tankkitietokanta.model.Tankki;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Collection;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import util.MyLogger;
 
 /**
  *
  * @author Antero Oikkonen
  */
 public class TankkiServlet extends HttpServlet {
+
+    private static Logger logger = MyLogger.getLogger(TankkiServlet.class.getName());
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,6 +49,31 @@ public class TankkiServlet extends HttpServlet {
         } else {
             // listaa tankit
 
+        }
+
+        String idParam = request.getParameter("uid");
+        int id;
+        try {
+            id = Integer.parseInt(idParam);
+            logger.info("id = " + id);
+
+            TankkiDao tankkiDao = new TankkiDaoImpl();
+            Tankki t = tankkiDao.haeTankki(id);
+
+            logger.info("tankki = "+t.getNimi());
+            
+            request.setAttribute("tankki", t);
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/tankki.jsp");
+            /* Pyydetään dispatcher-oliota näyttämään JSP-sivunsa */
+            dispatcher.forward(request, response);
+
+        } catch (Exception e) {
+            // Id-numero nolla ei käytännössä koskaan löydy kannasta, 
+            // joten koodin suoritus päätyy
+            // alla olevan if-lauseen else-haaraan
+            id = 0;
+            logger.info("id:tä ei löytynyt");
         }
 
         TankkiDao tankkiDao = new TankkiDaoImpl();

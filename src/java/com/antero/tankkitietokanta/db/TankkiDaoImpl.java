@@ -41,7 +41,7 @@ public class TankkiDaoImpl implements TankkiDao {
             while (tulokset.next()) {
                 logger.info("tankin haku onnistui");
                 Tankki t = new Tankki();
-            //Tuloksen arvoksi pitäisi tulla numero kaksi.
+                //Tuloksen arvoksi pitäisi tulla numero kaksi.
 
                 t.setUid(tulokset.getInt("uid"));
 
@@ -67,6 +67,15 @@ public class TankkiDaoImpl implements TankkiDao {
             }
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, null, ex);
+        }finally {
+            try {
+                tulokset.close();
+
+                kysely.close();
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(TankkiDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         return tankit;
@@ -75,6 +84,62 @@ public class TankkiDaoImpl implements TankkiDao {
     @Override
     public Tankki haeTankki(String nimi) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Tankki haeTankki(int id) {
+        Connection con = TietokantaYhteys.annaYhteys();
+        PreparedStatement kysely = null;
+        ResultSet tulokset = null;
+        Tankki t = new Tankki();
+        StringBuffer sql = new StringBuffer("select uid,nimi,tyyppi,tykki,pituus");
+        sql.append(",leveys,korkeus,runko_etu");
+        sql.append(",runko_sivu,runko_taka,torni_etu,torni_sivu,torni_taka,paino");
+        sql.append(",moottori,teho,lisatietoja from tankki where uid = ?");
+
+        try {
+            kysely = con.prepareStatement(sql.toString());
+            kysely.setInt(1, id);
+
+            tulokset = kysely.executeQuery();
+            while (tulokset.next()) {
+                logger.info("tankin haku onnistui id:llä " + id);
+
+                //Tuloksen arvoksi pitäisi tulla numero kaksi.
+                t.setUid(tulokset.getInt("uid"));
+
+                t.setNimi(tulokset.getString("nimi"));
+                t.setTyyppi(tulokset.getString("tyyppi"));
+                t.setTykki(tulokset.getString("tykki"));
+                t.setPituus(tulokset.getInt("pituus"));
+                t.setLeveys(tulokset.getInt("leveys"));
+                t.setKorkeus(tulokset.getInt("korkeus"));
+                t.setRunkoEtu(tulokset.getInt("runko_etu"));
+                t.setRunkoSivu(tulokset.getInt("runko_sivu"));
+                t.setRunkoTaka(tulokset.getInt("runko_taka"));
+                t.setTorniEtu(tulokset.getInt("torni_etu"));
+                t.setTorniSivu(tulokset.getInt("torni_sivu"));
+                t.setTorniTaka(tulokset.getInt("torni_taka"));
+                t.setPaino(tulokset.getInt("paino"));
+                t.setMoottori(tulokset.getString("moottori"));
+                t.setTeho(tulokset.getInt("teho"));
+                t.setLisatietoja(tulokset.getString("lisatietoja"));
+
+            }
+        } catch (SQLException ex) {
+            logger.log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                tulokset.close();
+
+                kysely.close();
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(TankkiDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return t;
     }
 
 }
