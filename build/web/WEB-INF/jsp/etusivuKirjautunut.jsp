@@ -11,22 +11,22 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
-      <body>
+    <body>
         <div>
-        <a href="tankinyllapito.html">Tankin lisäys</a>
+            <a href="tankinyllapito.html">Tankin lisäys</a>
         </div>
         <div>
-        <a href="tankinhaku.html">Tankin haku</a>
+            <a href="tankinhaku.html">Tankin haku</a>
         </div>
         <div>
-            <a href="tankkienListaus.html">Listaa tankit</a>
-            
+            <a href="TankkiServlet">Listaa tankit</a>
+
         </div>
         <div>
-        <a href="valmistajanYllapito.html">Lisää valistaja</a>
+            <a href="valmistajanYllapito.html">Lisää valistaja</a>
         </div>
         <div>
-        <a href="tankinvalmistaja.html">Tankin valmistaja</a>
+            <a href="tankinvalmistaja.html">Tankin valmistaja</a>
         </div>
     </body>
 </html>

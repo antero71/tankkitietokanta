@@ -16,7 +16,7 @@
         <a href="tankinhaku.html">Tankin haku</a>
         </div>
         <div>
-            <a href="tankkienListaus.html">Listaa tankit</a>
+            <a href="TankkiServlet">Listaa tankit</a>
         </div>
     </body>
 </html>

@@ -5,9 +5,14 @@
  */
 package com.antero.tankkitietokanta.servlet;
 
+import com.antero.tankkitietokanta.db.TankkiDao;
+import com.antero.tankkitietokanta.db.TankkiDaoImpl;
 import com.antero.tankkitietokanta.model.Kayttaja;
+import com.antero.tankkitietokanta.model.Tankki;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collection;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -36,10 +41,20 @@ public class TankkiServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Kayttaja kirjautunut = (Kayttaja) session.getAttribute("kirjautunut");
         if (kirjautunut != null) {
-  //Koodia, jonka vain kirjautunut käyttäjä saa suorittaa
-        }else{
-            
+            //Koodia, jonka vain kirjautunut käyttäjä saa suorittaa
+        } else {
+            // listaa tankit
+
         }
+
+        TankkiDao tankkiDao = new TankkiDaoImpl();
+        Collection<Tankki> tankit = tankkiDao.haeTankit();
+
+        request.setAttribute("tankit", tankit);
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/tankkilista.jsp");
+        /* Pyydetään dispatcher-oliota näyttämään JSP-sivunsa */
+        dispatcher.forward(request, response);
 
     }
 
