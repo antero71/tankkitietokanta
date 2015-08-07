@@ -38,7 +38,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>EtusivuServlet</servlet-name>
-        <url-pattern>/EtusivuServlet</url-pattern>
+        <url-pattern>/etusivu</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

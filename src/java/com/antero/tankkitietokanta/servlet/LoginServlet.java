@@ -68,7 +68,7 @@ public class LoginServlet extends HttpServlet {
                 HttpSession session = request.getSession();
                 session.setAttribute("kirjautunut", k);
 
-                response.sendRedirect("kissalista");
+                response.sendRedirect("etusivu");
             } else {
               //  logger.info("kayttaja " + k + ", login.jsp seuraavaksi");
                 /* Väärän tunnuksen syöttänyt saa eteensä kirjautumislomakkeen.

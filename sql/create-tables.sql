@@ -4,7 +4,7 @@ tunnus varchar(80),
 salasana varchar(80));
 
 create table tankki (
-uid int,
+uid serial primary key,
 nimi varchar(100),
 tyyppi varchar(100),
 tykki varchar(50),
@@ -23,7 +23,7 @@ teho int,
 lisatietoja varchar(512));
 
 create table valmistaja (
-uid int,
+uid serial primary key,
 nimi varchar(256),
 paikkakunta varchar(256));
 

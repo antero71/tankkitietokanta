@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  */
 public class MyLogger {
 
-    public static String fileName="../logs/mylog.txt";
+    public static String fileName="mylog.txt";
     private static Logger logger;
 
     public static String getFileName() {
