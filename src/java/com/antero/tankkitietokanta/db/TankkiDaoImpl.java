@@ -67,7 +67,7 @@ public class TankkiDaoImpl implements TankkiDao {
             }
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, null, ex);
-        }finally {
+        } finally {
             try {
                 tulokset.close();
 

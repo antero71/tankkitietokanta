@@ -27,7 +27,8 @@ import util.MyLogger;
  */
 public class LoginServlet extends HttpServlet {
 
-   private static Logger logger = MyLogger.getLogger(LoginServlet.class.getName());
+    private static Logger logger = MyLogger.getLogger(LoginServlet.class.getName());
+    private int first = 0;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -48,8 +49,8 @@ public class LoginServlet extends HttpServlet {
             String salasana = request.getParameter("password");
             String tunnus = request.getParameter("username");
 
-           // logger.info("sivulta salasana " + salasana);
-           // logger.info("sivulta tunnus " + tunnus);
+            // logger.info("sivulta salasana " + salasana);
+            // logger.info("sivulta tunnus " + tunnus);
             Kayttaja k = null;
             if (tunnus != null && salasana != null) {
 
@@ -58,7 +59,7 @@ public class LoginServlet extends HttpServlet {
                     KayttajaDao kayttaja = new KayttajaDaoImpl();
                     k = kayttaja.haeKayttaja(tunnus);
                 } catch (Exception e) {
-                   logger.log(Level.SEVERE, "Tietokantavirhe", e);
+                    logger.log(Level.SEVERE, "Tietokantavirhe", e);
                 }
                 //logger.info("kayttaja " + k);
             }
@@ -70,7 +71,11 @@ public class LoginServlet extends HttpServlet {
 
                 response.sendRedirect("etusivu");
             } else {
-              //  logger.info("kayttaja " + k + ", login.jsp seuraavaksi");
+                if (first > 0) {
+                    request.setAttribute("virheViesti", "käyttäjätunnus tai salasana on virheellinen");
+                }
+                first++;
+                //  logger.info("kayttaja " + k + ", login.jsp seuraavaksi");
                 /* Väärän tunnuksen syöttänyt saa eteensä kirjautumislomakkeen.
                  */
                 RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
@@ -78,8 +83,8 @@ public class LoginServlet extends HttpServlet {
                 dispatcher.forward(request, response);
             }
             //logger.info("tänne ei pitäis mennä");
-        }catch(ServletException e){
-            
+        } catch (ServletException e) {
+
         }
     }
 

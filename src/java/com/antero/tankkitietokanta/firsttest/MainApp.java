@@ -13,12 +13,13 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @author Antero Oikkonen
  */
 public class MainApp {
-       public static void main(String[] args) {
-      ApplicationContext context = 
-             new ClassPathXmlApplicationContext("Beans.xml");
 
-      HelloWorld obj = (HelloWorld) context.getBean("helloWorld");
+    public static void main(String[] args) {
+        ApplicationContext context
+                = new ClassPathXmlApplicationContext("Beans.xml");
 
-      obj.getMessage();
-   }
+        HelloWorld obj = (HelloWorld) context.getBean("helloWorld");
+
+        obj.getMessage();
+    }
 }

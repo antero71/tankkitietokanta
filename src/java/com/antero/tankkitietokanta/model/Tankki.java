@@ -165,6 +165,4 @@ public class Tankki {
         this.lisatietoja = lisatietoja;
     }
 
-    
-    
 }

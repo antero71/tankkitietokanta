@@ -10,13 +10,14 @@ package com.antero.tankkitietokanta.model;
  * @author Antero Oikkonen
  */
 public class Kayttaja {
+
     private String nimi;
     private String tunnus;
     private String salanasa;
 
     public Kayttaja(String tunnus, String salasana) {
-        this.tunnus=tunnus;
-        this.salanasa=salasana;
+        this.tunnus = tunnus;
+        this.salanasa = salasana;
     }
 
     public String getTunnus() {
@@ -45,8 +46,7 @@ public class Kayttaja {
 
     @Override
     public String toString() {
-        return "tunnus "+tunnus+" salasana "+salanasa;
+        return "tunnus " + tunnus + " salasana " + salanasa;
     }
-    
-    
+
 }

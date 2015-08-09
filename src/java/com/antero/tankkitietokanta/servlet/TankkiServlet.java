@@ -60,15 +60,16 @@ public class TankkiServlet extends HttpServlet {
             TankkiDao tankkiDao = new TankkiDaoImpl();
             Tankki t = tankkiDao.haeTankki(id);
 
-            logger.info("tankki = "+t.getNimi());
-            
+            logger.info("tankki = " + t.getNimi());
+
             request.setAttribute("tankki", t);
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/tankki.jsp");
             /* Pyydetään dispatcher-oliota näyttämään JSP-sivunsa */
             dispatcher.forward(request, response);
-            if(t!=null)
+            if (t != null) {
                 return;
+            }
 
         } catch (Exception e) {
             // Id-numero nolla ei käytännössä koskaan löydy kannasta, 

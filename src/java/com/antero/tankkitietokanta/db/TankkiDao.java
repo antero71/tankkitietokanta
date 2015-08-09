@@ -13,8 +13,11 @@ import java.util.Collection;
  * @author Antero Oikkonen
  */
 public interface TankkiDao {
+
     public Collection<Tankki> haeTankit();
+
     public Tankki haeTankki(String nimi);
+
     public Tankki haeTankki(int id);
-    
+
 }

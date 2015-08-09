@@ -13,7 +13,9 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Tankki <c:out value="${tankki.nimi}"/></h1>
+        <jsp:include page="header.jsp"></jsp:include>
+
+            <h1>Tankki <c:out value="${tankki.nimi}"/></h1>
         <div>
 
             tyyppi <c:out value="${tankki.tyyppi}"/>

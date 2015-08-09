@@ -7,16 +7,13 @@ package com.antero.tankkitietokanta;
 
 import org.springframework.stereotype.Controller;
 
-
-
 /**
  *
  * @author Antero Oikkonen
  */
-
 @Controller
-public class PanssarivaunuController  {
-    
+public class PanssarivaunuController {
+
     public PanssarivaunuController() {
         //Initialize controller properties here or 
         //in the Web Application Context
@@ -26,8 +23,7 @@ public class PanssarivaunuController  {
         //setSuccessView("successView");
         //setFormView("formView");
     }
-    
-   
+
     //Use onSubmit instead of doSubmitAction 
     //when you need access to the Request, Response, or BindException objects
     /*

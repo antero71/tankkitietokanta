@@ -43,11 +43,11 @@ public class TietokantatestiServlet extends HttpServlet {
             ResultSet tulokset = null;
             PrintWriter out = response.getWriter();
             response.setContentType("text/plain;charset=UTF-8");
-            
+
             try {
                 //Alustetaan muuttuja jossa on Select-kysely, joka palauttaa lukuarvon:
                 String sqlkysely = "SELECT nimi from testi order by nimi desc";
-                
+
                 kysely = yhteys.prepareStatement(sqlkysely);
                 tulokset = kysely.executeQuery();
                 while (tulokset.next()) {
@@ -58,7 +58,7 @@ public class TietokantatestiServlet extends HttpServlet {
             } catch (Exception e) {
                 out.println("Virhe: " + e.getMessage());
             }
-            
+
             tulokset.close();
             kysely.close();
         } catch (SQLException ex) {

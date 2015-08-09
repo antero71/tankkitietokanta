@@ -25,7 +25,7 @@ public class TietokantaYhteys {
     private static Logger logger = MyLogger.getLogger(TietokantaYhteys.class.getName());
 
     public static Connection annaYhteys() {
-       
+
         try {
             InitialContext cxt = new InitialContext();
             logger.info("seuraavaksi ctx.lookup");

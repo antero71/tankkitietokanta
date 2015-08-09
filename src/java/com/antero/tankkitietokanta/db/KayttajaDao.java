@@ -12,7 +12,7 @@ import com.antero.tankkitietokanta.model.Kayttaja;
  * @author Antero Oikkonen
  */
 public interface KayttajaDao {
-    
+
     public Kayttaja haeKayttaja(String nimi);
-    
+
 }

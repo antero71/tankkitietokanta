@@ -20,9 +20,8 @@ import util.MyLogger;
  */
 public class KayttajaDaoImpl implements KayttajaDao {
 
-      private static Logger logger = MyLogger.getLogger(KayttajaDaoImpl.class.getName());
+    private static Logger logger = MyLogger.getLogger(KayttajaDaoImpl.class.getName());
 
-    
     @Override
     public Kayttaja haeKayttaja(String tunnus) {
         Connection con = TietokantaYhteys.annaYhteys();
@@ -33,8 +32,8 @@ public class KayttajaDaoImpl implements KayttajaDao {
             //Alustetaan muuttuja jossa on Select-kysely, joka palauttaa lukuarvon:
             String sqlkysely = "SELECT tunnus,salasana from kayttaja where tunnus = ?";
 
-            logger.info("kysely "+kysely);
-            
+            logger.info("kysely " + kysely);
+
             kysely = con.prepareStatement(sqlkysely);
             kysely.setString(1, tunnus);
             tulokset = kysely.executeQuery();
@@ -48,7 +47,7 @@ public class KayttajaDaoImpl implements KayttajaDao {
 
             }
         } catch (Exception e) {
-             logger.log(Level.SEVERE, null, e);
+            logger.log(Level.SEVERE, null, e);
         } finally {
             try {
                 tulokset.close();

@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  */
 public class MyLogger {
 
-    public static String fileName="mylog.txt";
+    public static String fileName = "mylog.txt";
     private static Logger logger;
 
     public static String getFileName() {
@@ -28,8 +28,6 @@ public class MyLogger {
         MyLogger.fileName = fileName;
     }
 
-    
-    
     public static Logger getLogger(String className) {
         if (logger == null) {
             logger = Logger.getLogger(className);
@@ -43,7 +41,7 @@ public class MyLogger {
             }
             logger.addHandler(fh);
             logger.setLevel(Level.ALL);
-            
+
         }
         return logger;
     }

@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -17,5 +18,8 @@
             Salasana: <input type="password" name="password" />
             <button type="submit">Kirjaudu</button>
         </form>
+        <c:if test="${virheViesti != null}">
+            <div class="alert alert-danger">Virhe! ${virheViesti}</div>
+        </c:if>
     </body>
 </html>

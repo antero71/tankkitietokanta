@@ -19,21 +19,21 @@ import javax.sql.DataSource;
  * @author Antero Oikkonen
  */
 public class YhteydenTesti {
-    
-    public void listaaData(){
+
+    public void listaaData() {
         Connection con = TietokantaYhteys.annaYhteys();
         PreparedStatement state = null;
         ResultSet result = null;
         try {
-            
+
             state = con.prepareStatement("select nimi from testi");
             result = state.executeQuery();
-            while(result.next()){
+            while (result.next()) {
                 System.out.println(result.getString("nimi"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(YhteydenTesti.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+        } finally {
             try {
                 result.close();
                 state.close();
@@ -44,10 +44,10 @@ public class YhteydenTesti {
 
         }
     }
-    
+
     public static void main(String[] args) {
         YhteydenTesti testi = new YhteydenTesti();
         testi.listaaData();
     }
-    
+
 }

@@ -14,8 +14,8 @@
     </head>
     <body>
         <h1>Tankkilista</h1>
-    <c:forEach var="tankki" items="${tankit}">
-        <div class="tankki"><a href="TankkiServlet?uid=${tankki.uid}"><c:out value="${tankki.nimi}"/></a></div>
-    </c:forEach>
-</body>
+        <c:forEach var="tankki" items="${tankit}">
+            <div class="tankki"><a href="TankkiServlet?uid=${tankki.uid}"><c:out value="${tankki.nimi}"/></a></div>
+            </c:forEach>
+    </body>
 </html>

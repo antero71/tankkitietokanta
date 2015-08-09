@@ -11,9 +11,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
-      <body>
+    <body>
         <div>
-        <a href="tankinhaku.html">Tankin haku</a>
+            <a href="tankinhaku.html">Tankin haku</a>
         </div>
         <div>
             <a href="TankkiServlet">Listaa tankit</a>
