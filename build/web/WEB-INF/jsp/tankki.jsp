@@ -15,22 +15,52 @@
     <body>
         <h1>Tankki <c:out value="${tankki.nimi}"/></h1>
         <div>
-            
-            <c:out value="${tankki.tyyppi}"/>
-            <c:out value="${tankki.tykki}"/>
-            <c:out value="${tankki.pituus}"/>
-            <c:out value="${tankki.leveys}"/>
-            <c:out value="${tankki.korkeus}"/>
-            <c:out value="${tankki.runkoEtu}"/>
-            <c:out value="${tankki.runkoSivu}"/>
-            <c:out value="${tankki.runkoTaka}"/>
-            <c:out value="${tankki.torniEtu}"/>
-            <c:out value="${tankki.torniSivu}"/>
-            <c:out value="${tankki.torniTaka}"/>
-            <c:out value="${tankki.paino}"/>
-            <c:out value="${tankki.moottori}"/>
-            <c:out value="${tankki.teho}"/>
-            <c:out value="${tankki.lisatietoja}"/>
+
+            tyyppi <c:out value="${tankki.tyyppi}"/>
+
+        </div>
+        <div>
+            tykki <c:out value="${tankki.tykki}"/>
+        </div>
+        <div>    
+
+            pituus <c:out value="${tankki.pituus}"/>
+        </div>
+        <div>
+            leveys <c:out value="${tankki.leveys}"/>
+        </div>
+        <div>
+            korkeus <c:out value="${tankki.korkeus}"/>
+        </div>
+        <div>
+            panssarointi rungon edessä <c:out value="${tankki.runkoEtu}"/>
+        </div>
+        <div>
+            panssarointi rungon sivuilla <c:out value="${tankki.runkoSivu}"/>
+        </div>
+        <div>
+            panssarointi rungon takana <c:out value="${tankki.runkoTaka}"/>
+        </div>
+        <div>
+            panssatointi tornin edessä <c:out value="${tankki.torniEtu}"/>
+        </div>
+        <div>
+            panssatointi tornin sivulla <c:out value="${tankki.torniSivu}"/>
+        </div>
+        <div>
+            panssatointi tornin takana <c:out value="${tankki.torniTaka}"/>
+        </div>
+        <div>
+            paino <c:out value="${tankki.paino}"/>
+        </div>
+        <div>
+            moottori <c:out value="${tankki.moottori}"/>
+        </div>
+        <div>
+            moottorin teho <c:out value="${tankki.teho}"/>
+        </div>
+        <div>
+            lisätietoa <c:out value="${tankki.lisatietoja}"/>
         </div>
     </body>
 </html>

@@ -67,6 +67,8 @@ public class TankkiServlet extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/tankki.jsp");
             /* Pyydetään dispatcher-oliota näyttämään JSP-sivunsa */
             dispatcher.forward(request, response);
+            if(t!=null)
+                return;
 
         } catch (Exception e) {
             // Id-numero nolla ei käytännössä koskaan löydy kannasta, 
