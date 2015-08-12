@@ -97,6 +97,8 @@ public class TankkiDaoImpl implements TankkiDao {
         sql.append(",runko_sivu,runko_taka,torni_etu,torni_sivu,torni_taka,paino");
         sql.append(",moottori,teho,lisatietoja from tankki where uid = ?");
 
+        logger.info("hae tankki kysely " + sql);
+
         try {
             kysely = con.prepareStatement(sql.toString());
             kysely.setInt(1, id);
@@ -140,6 +142,92 @@ public class TankkiDaoImpl implements TankkiDao {
         }
 
         return t;
+    }
+
+    private PreparedStatement createPreparedStatement(PreparedStatement kysely, Tankki tankki) throws SQLException {
+        kysely.setString(1, tankki.getNimi());
+        kysely.setString(2, tankki.getTyyppi());
+        kysely.setString(3, tankki.getTykki());
+        kysely.setInt(4, tankki.getPituus());
+        kysely.setInt(5, tankki.getLeveys());
+        kysely.setInt(6, tankki.getKorkeus());
+        kysely.setInt(7, tankki.getRunkoEtu());
+        kysely.setInt(8, tankki.getRunkoSivu());
+        kysely.setInt(9, tankki.getRunkoTaka());
+        kysely.setInt(10, tankki.getTorniEtu());
+        kysely.setInt(11, tankki.getTorniSivu());
+        kysely.setInt(12, tankki.getTorniTaka());
+        kysely.setInt(13, tankki.getPaino());
+        kysely.setString(14, tankki.getMoottori());
+        kysely.setInt(15, tankki.getTeho());
+        kysely.setString(16, tankki.getLisatietoja());
+
+        return kysely;
+
+    }
+
+    @Override
+    public int lisaaTankki(Tankki tankki) {
+
+        Connection con = TietokantaYhteys.annaYhteys();
+        PreparedStatement kysely = null;
+        ResultSet result = null;
+        int id = -1;
+
+        StringBuffer sql = new StringBuffer("insert into tankki (nimi,tyyppi,tykki,pituus");
+        sql.append(",leveys,korkeus,runko_etu");
+        sql.append(",runko_sivu,runko_taka,torni_etu,torni_sivu,torni_taka,paino");
+        sql.append(",moottori,teho,lisatietoja) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) RETURNING id");
+        try {
+            kysely = con.prepareStatement(sql.toString());
+
+            kysely = createPreparedStatement(kysely, tankki);
+
+            result = kysely.executeQuery();
+
+            id = result.getInt(1);
+        } catch (SQLException e) {
+
+        } finally {
+            try {
+                kysely.close();
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(TankkiDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+        return id;
+
+    }
+
+    @Override
+    public int paivitaTankki(Tankki tankki) {
+        StringBuffer sql = new StringBuffer("update tankki nimi=?,tyyppi=?,tykki=?,pituus=?");
+        sql.append(",leveys=?,korkeus=?,runko_etu=?");
+        sql.append(",runko_sivu=?,runko_taka=?,torni_etu=?,torni_sivu=?,torni_taka=?,paino=?");
+        sql.append(",moottori=?,teho=?,lisatietoja=?) where uid=?");
+        Connection con = TietokantaYhteys.annaYhteys();
+        PreparedStatement kysely = null;
+        try {
+            kysely = con.prepareStatement(sql.toString());
+
+            kysely = createPreparedStatement(kysely, tankki);
+            kysely.setInt(17, tankki.getUid());
+
+            kysely.executeQuery();
+        } catch (SQLException ex) {
+            Logger.getLogger(TankkiDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                kysely.close();
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(TankkiDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+        return tankki.getUid();
     }
 
 }

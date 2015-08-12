@@ -20,4 +20,8 @@ public interface TankkiDao {
 
     public Tankki haeTankki(int id);
 
+    public int lisaaTankki(Tankki tankki);
+    
+    public int paivitaTankki(Tankki tankki);
+    
 }

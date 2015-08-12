@@ -1,4 +1,5 @@
 create table kayttaja(
+id serial primary key,
 nimi varchar(80),
 tunnus varchar(80),
 salasana varchar(80));

@@ -51,6 +51,8 @@ public class TankkiServlet extends HttpServlet {
 
         }
 
+        String muokkaa = request.getParameter("muokkaa");
+
         String idParam = request.getParameter("uid");
         int id;
         try {
@@ -64,7 +66,14 @@ public class TankkiServlet extends HttpServlet {
 
             request.setAttribute("tankki", t);
 
-            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/tankki.jsp");
+            RequestDispatcher dispatcher = null;
+
+            if (muokkaa.equals("true") && kirjautunut != null) {
+                dispatcher = request.getRequestDispatcher("WEB-INF/jsp/muokkaatankki.jsp");
+            } else {
+
+                dispatcher = request.getRequestDispatcher("WEB-INF/jsp/tankki.jsp");
+            }
             /* Pyydetään dispatcher-oliota näyttämään JSP-sivunsa */
             dispatcher.forward(request, response);
             if (t != null) {
