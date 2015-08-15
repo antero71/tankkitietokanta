@@ -177,7 +177,10 @@ public class TankkiDaoImpl implements TankkiDao {
         StringBuffer sql = new StringBuffer("insert into tankki (nimi,tyyppi,tykki,pituus");
         sql.append(",leveys,korkeus,runko_etu");
         sql.append(",runko_sivu,runko_taka,torni_etu,torni_sivu,torni_taka,paino");
-        sql.append(",moottori,teho,lisatietoja) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) RETURNING id");
+        sql.append(",moottori,teho,lisatietoja) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) RETURNING uid");
+
+        logger.info("lisäyslause " + sql);
+
         try {
             kysely = con.prepareStatement(sql.toString());
 
@@ -187,7 +190,7 @@ public class TankkiDaoImpl implements TankkiDao {
 
             id = result.getInt(1);
         } catch (SQLException e) {
-
+            logger.log(Level.SEVERE, "sql lauseen suoritus epäonnistui", e);
         } finally {
             try {
                 kysely.close();
@@ -207,9 +210,9 @@ public class TankkiDaoImpl implements TankkiDao {
         sql.append(",leveys=?,korkeus=?,runko_etu=?");
         sql.append(",runko_sivu=?,runko_taka=?,torni_etu=?,torni_sivu=?,torni_taka=?,paino=?");
         sql.append(",moottori=?,teho=?,lisatietoja=? where uid=?");
-        
-        logger.info("sql "+sql);
-        
+
+        logger.info("sql " + sql);
+
         Connection con = TietokantaYhteys.annaYhteys();
         PreparedStatement kysely = null;
         try {

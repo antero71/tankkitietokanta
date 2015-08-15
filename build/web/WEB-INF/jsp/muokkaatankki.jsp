@@ -16,7 +16,7 @@
         <form>
             <div>
                 Tankin <c:out value="${otsikko}"/>
-                <input type="hidden" name="otsikko" value="<c:out value="${otsikko}"/>"></hidden>
+                <input type="hidden" name="otsikko2" value="<c:out value="${otsikko2}"/>"></hidden>
                 <input type="hidden" name="uid" value="<c:out value="${tankki.uid}"/>"></hidden>
             </div>
             <div>Nimi
@@ -71,10 +71,10 @@
 
                 moottori
                 <input type="text" name="moottori" value="<c:out value="${tankki.moottori}"/>">
-                
+
                 teho
                 <input type="text" name="teho" value="<c:out value="${tankki.teho}"/>">
-                
+
 
                 lisätietoa
                 <input type="text" name="lisätieto" value="<c:out value="${tankki.lisatietoja}"/>">

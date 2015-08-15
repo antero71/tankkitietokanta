@@ -33,5 +33,4 @@ osaid int,
 valmistajaid int,
 osannimi varchar(100),
 valmistus_alkoi int,
-valmistus_paattyi int
-)
+valmistus_paattyi int);

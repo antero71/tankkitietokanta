@@ -12,6 +12,7 @@ import com.antero.tankkitietokanta.model.Tankki;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Collection;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -52,37 +53,41 @@ public class TankkiServlet extends HttpServlet {
         }
 
         String muokkaa = request.getParameter("muokkaa");
-        
-        logger.info("muokkaa "+muokkaa);
+
+        logger.info("muokkaa " + muokkaa);
 
         String idParam = request.getParameter("uid");
-        
-        logger.info("uid "+idParam);
+
+        logger.info("uid " + idParam);
 
         RequestDispatcher dispatcher = null;
 
         String newParam = request.getParameter("new");
 
-        logger.info("new "+newParam);
-        
-        
+        logger.info("new " + newParam);
+
         String otsikko = request.getParameter("otsikko");
-        
-        logger.info("otsikko "+otsikko);
+        String otsikko2 = request.getParameter("otsikko2");
+
+        logger.info("otsikko " + otsikko);
 
         if (newParam != null && newParam.equals("true") && kirjautunut != null) {
             request.setAttribute("otsikko", "lisäys");
+            request.setAttribute("otsikko2", "insert");
             dispatcher = request.getRequestDispatcher("WEB-INF/jsp/muokkaatankki.jsp");
             dispatcher.forward(request, response);
             return;
         }
 
-        if (otsikko != null) {
-            logger.info("otsikko annettu "+otsikko);
-            if (otsikko.equals("lisays")) {
-
-            } else if(otsikko.equals("muokkaus")){
-                logger.info("muokkaus haara, seuraavaksi tankin päivitys sivun tiedoilla");
+        if (otsikko2 != null) {
+            logger.info("otsikko annettu " + otsikko);
+            logger.info("otsikko2 " + otsikko2);
+            if (otsikko2.equals("insert")) {
+                logger.info("lisäyshaara, seuraavaksi tankin lisäys sivun tiedoilla");
+                TankkiDao tankkiDao = new TankkiDaoImpl();
+                tankkiDao.lisaaTankki(muodostaTankki(request));
+            } else if (otsikko2.equals("update")) {
+                logger.info("muokkaushaara, seuraavaksi tankin päivitys sivun tiedoilla");
                 TankkiDao tankkiDao = new TankkiDaoImpl();
                 tankkiDao.paivitaTankki(muodostaTankki(request));
             }
@@ -100,6 +105,7 @@ public class TankkiServlet extends HttpServlet {
 
             request.setAttribute("tankki", t);
             request.setAttribute("otsikko", "muokkaus");
+            request.setAttribute("otsikko2", "update");
 
             if (muokkaa.equals("true") && kirjautunut != null) {
                 dispatcher = request.getRequestDispatcher("WEB-INF/jsp/muokkaatankki.jsp");
@@ -173,10 +179,15 @@ public class TankkiServlet extends HttpServlet {
 
     private Tankki muodostaTankki(HttpServletRequest request) {
 
+        logger.logp(Level.INFO, TankkiServlet.class.getName(), "muodostaTankki", "alussa");
+
         Tankki t = new Tankki();
 
-        t.setUid(Integer.parseInt(request.getParameter("uid")));
-
+        try {
+            t.setUid(Integer.parseInt(request.getParameter("uid")));
+        } catch (NumberFormatException e) {
+            logger.info("uid:tä ei tullut sivulta, jatketaan muilla parametreillä");
+        }
         t.setNimi(request.getParameter("nimi"));
         t.setTyyppi(request.getParameter("tyyppi"));
         t.setTykki(request.getParameter("tykki"));
