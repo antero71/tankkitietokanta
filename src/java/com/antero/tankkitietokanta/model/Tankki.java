@@ -226,4 +226,9 @@ public class Tankki {
         return kelvollinen;
     }
 
+    public void lisaaVirhe(String kentta, String virhe) {
+        virheet.put(kentta, virhe);
+        kelvollinen=false;
+    }
+
 }

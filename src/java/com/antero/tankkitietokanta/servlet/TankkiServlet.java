@@ -191,18 +191,62 @@ public class TankkiServlet extends HttpServlet {
         t.setNimi(request.getParameter("nimi"));
         t.setTyyppi(request.getParameter("tyyppi"));
         t.setTykki(request.getParameter("tykki"));
-        t.setPituus(Integer.parseInt(request.getParameter("pituus")));
-        t.setLeveys(Integer.parseInt(request.getParameter("leveys")));
-        t.setKorkeus(Integer.parseInt(request.getParameter("korkeus")));
-        t.setRunkoEtu(Integer.parseInt(request.getParameter("runkoetu")));
-        t.setRunkoSivu(Integer.parseInt(request.getParameter("runkosivu")));
-        t.setRunkoTaka(Integer.parseInt(request.getParameter("runkotaka")));
-        t.setTorniEtu(Integer.parseInt(request.getParameter("tornietu")));
-        t.setTorniSivu(Integer.parseInt(request.getParameter("tornisivu")));
-        t.setTorniTaka(Integer.parseInt(request.getParameter("tornitaka")));
-        t.setPaino(Integer.parseInt(request.getParameter("paino")));
+        try {
+            t.setPituus(Integer.parseInt(request.getParameter("pituus")));
+        } catch (NumberFormatException e) {
+            t.lisaaVirhe("pituus", "pituuden pitää olla numero");
+        }
+        try {
+            t.setLeveys(Integer.parseInt(request.getParameter("leveys")));
+        } catch (NumberFormatException e) {
+            t.lisaaVirhe("leveys", "leveyden pitää olla numero");
+        }
+        try {
+            t.setKorkeus(Integer.parseInt(request.getParameter("korkeus")));
+        } catch (NullPointerException e) {
+            t.lisaaVirhe("korkeus", "korkeuden pitää olla numero");
+        }
+        try {
+            t.setRunkoEtu(Integer.parseInt(request.getParameter("runkoetu")));
+        } catch (NullPointerException e) {
+            t.lisaaVirhe("runkoetu", "rungon etupanssaroinnin paksuus pitää olla numero");
+        }
+        try {
+            t.setRunkoSivu(Integer.parseInt(request.getParameter("runkosivu")));
+        } catch (NumberFormatException e) {
+            t.lisaaVirhe("runkosivu", "rungon sivupanssaroinnin paksuus pitää olla numero");
+        }
+        try {
+            t.setRunkoTaka(Integer.parseInt(request.getParameter("runkotaka")));
+        } catch (NumberFormatException e) {
+            t.lisaaVirhe("runkotaka", "rungon takapanssaroinnin paksuus pitää olla numero");
+        }
+        try {
+            t.setTorniEtu(Integer.parseInt(request.getParameter("tornietu")));
+        } catch (NumberFormatException e) {
+            t.lisaaVirhe("tornietu", "tornin etupanssaroinnin paksuus pitää olla numero");
+        }
+        try {
+            t.setTorniSivu(Integer.parseInt(request.getParameter("tornisivu")));
+        } catch (NumberFormatException e) {
+            t.lisaaVirhe("tornisivu", "tornin sivupanssaroinnin paksuus pitää olla numero");
+        }
+        try {
+            t.setTorniTaka(Integer.parseInt(request.getParameter("tornitaka")));
+        } catch (NumberFormatException e) {
+            t.lisaaVirhe("tornitaka", "tornin takapanssaroinnin paksuus pitää olla numero");
+        }
+        try {
+            t.setPaino(Integer.parseInt(request.getParameter("paino")));
+        } catch (NumberFormatException e) {
+            t.lisaaVirhe("paino", "painon pitää olla numero");
+        }
         t.setMoottori(request.getParameter("moottori"));
-        t.setTeho(Integer.parseInt(request.getParameter("teho")));
+        try {
+            t.setTeho(Integer.parseInt(request.getParameter("teho")));
+        } catch (NumberFormatException e) {
+            t.lisaaVirhe("teho", "tehon pitää olla numero");
+        }
         t.setLisatietoja(request.getParameter("lisatietoja"));
 
         return t;
