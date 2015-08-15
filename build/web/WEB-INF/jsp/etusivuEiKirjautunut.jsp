@@ -12,6 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <jsp:include page="header.jsp"></jsp:include>ß
         <div>
             <a href="tankinhaku.html">Tankin haku</a>
         </div>

@@ -13,9 +13,11 @@
         <title>Tankkilista</title>
     </head>
     <body>
+        <jsp:include page="header.jsp"></jsp:include>
         <h1>Tankkilista</h1>
         <c:forEach var="tankki" items="${tankit}">
             <div class="tankki"><a href="TankkiServlet?uid=${tankki.uid}"><c:out value="${tankki.nimi}"/></a><a href="TankkiServlet?uid=${tankki.uid}&muokkaa=true">Muokkaa</a></div>
         </c:forEach>
+        <a href="TankkiServlet?new=true">Lisää uusi tankki</a>
     </body>
 </html>

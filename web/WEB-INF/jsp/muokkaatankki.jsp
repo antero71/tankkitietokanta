@@ -13,9 +13,11 @@
         <title>JSP Page</title>
     </head>
     <body>
-          <form>
+        <form>
             <div>
-                Tankin lisäys/muokkaus
+                Tankin <c:out value="${otsikko}"/>
+                <input type="hidden" name="otsikko" value="<c:out value="${otsikko}"/>"></hidden>
+                <input type="hidden" name="uid" value="<c:out value="${tankki.uid}"/>"></hidden>
             </div>
             <div>Nimi
                 <input type="text" name="nimi" value="<c:out value="${tankki.nimi}"/>">
@@ -69,6 +71,10 @@
 
                 moottori
                 <input type="text" name="moottori" value="<c:out value="${tankki.moottori}"/>">
+                
+                teho
+                <input type="text" name="teho" value="<c:out value="${tankki.teho}"/>">
+                
 
                 lisätietoa
                 <input type="text" name="lisätieto" value="<c:out value="${tankki.lisatietoja}"/>">

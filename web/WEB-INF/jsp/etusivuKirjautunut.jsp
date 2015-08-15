@@ -12,6 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <jsp:include page="header.jsp"></jsp:include>
         <div>
             <a href="tankinyllapito.html">Tankin lisäys</a>
         </div>

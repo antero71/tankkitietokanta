@@ -5,6 +5,8 @@
  */
 package com.antero.tankkitietokanta.model;
 
+import java.util.HashMap;
+
 /**
  *
  * @author Antero Oikkonen
@@ -27,8 +29,24 @@ public class Tankki {
     private int paino;
     private String moottori;
     private int teho;
-    private String lisatietoja;
+    private String lisatietoja;  
+    private boolean kelvollinen = true;
+    private HashMap<String,String> virheet = new HashMap<String, String>();
 
+    public boolean isKelvollinen() {
+        return kelvollinen;
+    }
+
+
+    public HashMap<String, String> getVirheet() {
+        return virheet;
+    }
+
+    public void setVirheet(HashMap<String, String> virheet) {
+        this.virheet = virheet;
+    }
+    
+    
     public int getUid() {
         return uid;
     }
@@ -42,7 +60,10 @@ public class Tankki {
     }
 
     public void setNimi(String nimi) {
-        this.nimi = nimi;
+        if(tarkistaString("nimi",nimi)){
+            this.nimi = nimi;
+        }
+        
     }
 
     public String getTyyppi() {
@@ -50,7 +71,10 @@ public class Tankki {
     }
 
     public void setTyyppi(String tyyppi) {
-        this.tyyppi = tyyppi;
+        if(tarkistaString("tyyppi", tyyppi)){
+            this.tyyppi = tyyppi;
+        }
+        
     }
 
     public String getTykki() {
@@ -58,7 +82,10 @@ public class Tankki {
     }
 
     public void setTykki(String tykki) {
-        this.tykki = tykki;
+        if(tarkistaString("tykki", tykki)){
+             this.tykki = tykki;
+        }
+       
     }
 
     public int getPituus() {
@@ -66,7 +93,10 @@ public class Tankki {
     }
 
     public void setPituus(int pituus) {
-        this.pituus = pituus;
+        if(tarkastaInt("pituus",pituus)){
+              this.pituus = pituus;
+        }
+      
     }
 
     public int getLeveys() {
@@ -163,6 +193,37 @@ public class Tankki {
 
     public void setLisatietoja(String lisatietoja) {
         this.lisatietoja = lisatietoja;
+    }
+
+    private boolean tarkistaString(String kentta, String sisalto) {
+        if(sisalto==null){
+            virheet.put(kentta,"nimi on null");
+            kelvollinen=false;
+        }
+            
+        if(sisalto.length()<1){
+            virheet.put(kentta, "nimen pitää olla pituudeltaan yli 0");
+            kelvollinen=false;
+        }
+        
+        if(sisalto.contains(">") || sisalto.contains("<")){
+            virheet.put(kentta, "> ja < on kiellettyjä merkkejä");
+            kelvollinen=false;
+        }
+        return kelvollinen;
+    }
+
+    private boolean tarkastaInt(String kentta, int arvo) {
+        if(arvo<0){
+            virheet.put(kentta,"arvo ei voi olla negatiivinen");
+            kelvollinen=false;
+        }
+        
+        if(arvo>100000){
+            virheet.put(kentta, "arvon tulee olla alle 100000");
+            kelvollinen=false;
+        }
+        return kelvollinen;
     }
 
 }

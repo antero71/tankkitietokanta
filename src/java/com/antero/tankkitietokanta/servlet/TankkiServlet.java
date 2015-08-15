@@ -52,8 +52,42 @@ public class TankkiServlet extends HttpServlet {
         }
 
         String muokkaa = request.getParameter("muokkaa");
+        
+        logger.info("muokkaa "+muokkaa);
 
         String idParam = request.getParameter("uid");
+        
+        logger.info("uid "+idParam);
+
+        RequestDispatcher dispatcher = null;
+
+        String newParam = request.getParameter("new");
+
+        logger.info("new "+newParam);
+        
+        
+        String otsikko = request.getParameter("otsikko");
+        
+        logger.info("otsikko "+otsikko);
+
+        if (newParam != null && newParam.equals("true") && kirjautunut != null) {
+            request.setAttribute("otsikko", "lisäys");
+            dispatcher = request.getRequestDispatcher("WEB-INF/jsp/muokkaatankki.jsp");
+            dispatcher.forward(request, response);
+            return;
+        }
+
+        if (otsikko != null) {
+            logger.info("otsikko annettu "+otsikko);
+            if (otsikko.equals("lisays")) {
+
+            } else if(otsikko.equals("muokkaus")){
+                logger.info("muokkaus haara, seuraavaksi tankin päivitys sivun tiedoilla");
+                TankkiDao tankkiDao = new TankkiDaoImpl();
+                tankkiDao.paivitaTankki(muodostaTankki(request));
+            }
+        }
+
         int id;
         try {
             id = Integer.parseInt(idParam);
@@ -65,8 +99,7 @@ public class TankkiServlet extends HttpServlet {
             logger.info("tankki = " + t.getNimi());
 
             request.setAttribute("tankki", t);
-
-            RequestDispatcher dispatcher = null;
+            request.setAttribute("otsikko", "muokkaus");
 
             if (muokkaa.equals("true") && kirjautunut != null) {
                 dispatcher = request.getRequestDispatcher("WEB-INF/jsp/muokkaatankki.jsp");
@@ -93,7 +126,7 @@ public class TankkiServlet extends HttpServlet {
 
         request.setAttribute("tankit", tankit);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/tankkilista.jsp");
+        dispatcher = request.getRequestDispatcher("WEB-INF/jsp/tankkilista.jsp");
         /* Pyydetään dispatcher-oliota näyttämään JSP-sivunsa */
         dispatcher.forward(request, response);
 
@@ -137,5 +170,31 @@ public class TankkiServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private Tankki muodostaTankki(HttpServletRequest request) {
+
+        Tankki t = new Tankki();
+
+        t.setUid(Integer.parseInt(request.getParameter("uid")));
+
+        t.setNimi(request.getParameter("nimi"));
+        t.setTyyppi(request.getParameter("tyyppi"));
+        t.setTykki(request.getParameter("tykki"));
+        t.setPituus(Integer.parseInt(request.getParameter("pituus")));
+        t.setLeveys(Integer.parseInt(request.getParameter("leveys")));
+        t.setKorkeus(Integer.parseInt(request.getParameter("korkeus")));
+        t.setRunkoEtu(Integer.parseInt(request.getParameter("runkoetu")));
+        t.setRunkoSivu(Integer.parseInt(request.getParameter("runkosivu")));
+        t.setRunkoTaka(Integer.parseInt(request.getParameter("runkotaka")));
+        t.setTorniEtu(Integer.parseInt(request.getParameter("tornietu")));
+        t.setTorniSivu(Integer.parseInt(request.getParameter("tornisivu")));
+        t.setTorniTaka(Integer.parseInt(request.getParameter("tornitaka")));
+        t.setPaino(Integer.parseInt(request.getParameter("paino")));
+        t.setMoottori(request.getParameter("moottori"));
+        t.setTeho(Integer.parseInt(request.getParameter("teho")));
+        t.setLisatietoja(request.getParameter("lisatietoja"));
+
+        return t;
+    }
 
 }

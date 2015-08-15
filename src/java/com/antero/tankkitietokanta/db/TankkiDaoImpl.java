@@ -203,10 +203,13 @@ public class TankkiDaoImpl implements TankkiDao {
 
     @Override
     public int paivitaTankki(Tankki tankki) {
-        StringBuffer sql = new StringBuffer("update tankki nimi=?,tyyppi=?,tykki=?,pituus=?");
+        StringBuffer sql = new StringBuffer("update tankki set nimi=?,tyyppi=?,tykki=?,pituus=?");
         sql.append(",leveys=?,korkeus=?,runko_etu=?");
         sql.append(",runko_sivu=?,runko_taka=?,torni_etu=?,torni_sivu=?,torni_taka=?,paino=?");
-        sql.append(",moottori=?,teho=?,lisatietoja=?) where uid=?");
+        sql.append(",moottori=?,teho=?,lisatietoja=? where uid=?");
+        
+        logger.info("sql "+sql);
+        
         Connection con = TietokantaYhteys.annaYhteys();
         PreparedStatement kysely = null;
         try {
