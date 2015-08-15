@@ -82,7 +82,7 @@
             <div>
                 <input type="submit" value="Tallenna">
                 <input type="submit" value="Peru">
-
+                <a href="TankkiServlet?poista=true&uid=<c:out value="${tankki.uid}"/>">poista tankki</a>
             </div>
         </form>
 

@@ -23,5 +23,7 @@ public interface TankkiDao {
     public int lisaaTankki(Tankki tankki);
     
     public int paivitaTankki(Tankki tankki);
+
+    public void poistaTankki(int id);
     
 }

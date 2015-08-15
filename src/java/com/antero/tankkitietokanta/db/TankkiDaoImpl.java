@@ -236,4 +236,33 @@ public class TankkiDaoImpl implements TankkiDao {
         return tankki.getUid();
     }
 
+    @Override
+    public void poistaTankki(int id) {
+        String sql = "delete from tankki where uid=?";
+        
+        logger.info("deletestring "+sql);
+        logger.info("poistettavan id "+id);
+
+        Connection con = TietokantaYhteys.annaYhteys();
+        PreparedStatement kysely = null;
+        try {
+            kysely = con.prepareStatement(sql);
+
+            kysely.setInt(1, id);
+
+            kysely.executeQuery();
+        } catch (SQLException ex) {
+            Logger.getLogger(TankkiDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                kysely.close();
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(TankkiDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+
+    }
+
 }

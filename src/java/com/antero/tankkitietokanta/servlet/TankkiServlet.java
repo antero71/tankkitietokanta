@@ -71,6 +71,8 @@ public class TankkiServlet extends HttpServlet {
 
         logger.info("otsikko " + otsikko);
 
+        String poista = request.getParameter("poista");
+
         if (newParam != null && newParam.equals("true") && kirjautunut != null) {
             request.setAttribute("otsikko", "lisäys");
             request.setAttribute("otsikko2", "insert");
@@ -95,13 +97,21 @@ public class TankkiServlet extends HttpServlet {
 
         int id;
         try {
+            logger.info("poista " + poista);
             id = Integer.parseInt(idParam);
             logger.info("id = " + id);
+            logger.info("poista " + poista);
+
+            if (poista != null && poista.equals("true")) {
+                TankkiDao tankkiDao = new TankkiDaoImpl();
+                tankkiDao.poistaTankki(id);
+            }
 
             TankkiDao tankkiDao = new TankkiDaoImpl();
             Tankki t = tankkiDao.haeTankki(id);
 
             logger.info("tankki = " + t.getNimi());
+        
 
             request.setAttribute("tankki", t);
             request.setAttribute("otsikko", "muokkaus");
