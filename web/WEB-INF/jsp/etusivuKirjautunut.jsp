@@ -23,7 +23,7 @@
             <a href="TankkiServlet?lista=true">Listaa tankit</a>
         </div>
         <div>
-            <a href="valmistajanYllapito.html">Lisää valistaja</a>
+            <a href="Valmistaja?lisaa=true">Lisää valmistaja</a>
         </div>
         <div>
             <a href="tankinvalmistaja.html">Tankin valmistaja</a>
