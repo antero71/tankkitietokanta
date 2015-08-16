@@ -239,9 +239,9 @@ public class TankkiDaoImpl implements TankkiDao {
     @Override
     public void poistaTankki(int id) {
         String sql = "delete from tankki where uid=?";
-        
-        logger.info("deletestring "+sql);
-        logger.info("poistettavan id "+id);
+
+        logger.info("deletestring " + sql);
+        logger.info("poistettavan id " + id);
 
         Connection con = TietokantaYhteys.annaYhteys();
         PreparedStatement kysely = null;
@@ -262,6 +262,72 @@ public class TankkiDaoImpl implements TankkiDao {
             }
 
         }
+
+    }
+
+    @Override
+    public Collection<Tankki> haeNimella(String nimi) {
+
+        StringBuffer hakutermi = new StringBuffer("%");
+        hakutermi.append(nimi);
+        hakutermi.append("%");
+        
+        Connection con = TietokantaYhteys.annaYhteys();
+        PreparedStatement kysely = null;
+        ResultSet tulokset = null;
+        Collection<Tankki> tankit = new ArrayList<Tankki>();
+        Tankki t = new Tankki();
+        StringBuffer sql = new StringBuffer("select uid,nimi,tyyppi,tykki,pituus");
+        sql.append(",leveys,korkeus,runko_etu");
+        sql.append(",runko_sivu,runko_taka,torni_etu,torni_sivu,torni_taka,paino");
+        sql.append(",moottori,teho,lisatietoja from tankki where nimi like ?");
+
+        logger.info("hae tankki (nimellä) kysely " + sql);
+
+        try {
+            kysely = con.prepareStatement(sql.toString());
+            kysely.setString(1, hakutermi.toString());
+
+            tulokset = kysely.executeQuery();
+            while (tulokset.next()) {
+                logger.info("tankin haku onnistui nimellä " + nimi);
+
+                //Tuloksen arvoksi pitäisi tulla numero kaksi.
+                t.setUid(tulokset.getInt("uid"));
+
+                t.setNimi(tulokset.getString("nimi"));
+                t.setTyyppi(tulokset.getString("tyyppi"));
+                t.setTykki(tulokset.getString("tykki"));
+                t.setPituus(tulokset.getInt("pituus"));
+                t.setLeveys(tulokset.getInt("leveys"));
+                t.setKorkeus(tulokset.getInt("korkeus"));
+                t.setRunkoEtu(tulokset.getInt("runko_etu"));
+                t.setRunkoSivu(tulokset.getInt("runko_sivu"));
+                t.setRunkoTaka(tulokset.getInt("runko_taka"));
+                t.setTorniEtu(tulokset.getInt("torni_etu"));
+                t.setTorniSivu(tulokset.getInt("torni_sivu"));
+                t.setTorniTaka(tulokset.getInt("torni_taka"));
+                t.setPaino(tulokset.getInt("paino"));
+                t.setMoottori(tulokset.getString("moottori"));
+                t.setTeho(tulokset.getInt("teho"));
+                t.setLisatietoja(tulokset.getString("lisatietoja"));
+                tankit.add(t);
+
+            }
+        } catch (SQLException ex) {
+            logger.log(Level.SEVERE, "haeNimellä epäonnistui", ex);
+        } finally {
+            try {
+                tulokset.close();
+
+                kysely.close();
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(TankkiDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return tankit;
 
     }
 

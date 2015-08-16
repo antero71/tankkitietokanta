@@ -26,4 +26,6 @@ public interface TankkiDao {
 
     public void poistaTankki(int id);
     
+    public Collection<Tankki> haeNimella(String nimi);
+    
 }

@@ -17,7 +17,7 @@
             <a href="tankinyllapito.html">Tankin lisäys</a>
         </div>
         <div>
-            <a href="tankinhaku.html">Tankin haku</a>
+            <a href="TankkiServlet?hae=true">Tankin haku</a>
         </div>
         <div>
             <a href="TankkiServlet">Listaa tankit</a>

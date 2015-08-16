@@ -16,7 +16,7 @@
         <form>
             <div>
                 Tankin <c:out value="${otsikko}"/>
-                <input type="hidden" name="otsikko2" value="<c:out value="${otsikko2}"/>"></hidden>
+                <input type="hidden" name="toiminto" value="<c:out value="${otsikko2}"/>"></hidden>
                 <input type="hidden" name="uid" value="<c:out value="${tankki.uid}"/>"></hidden>
             </div>
             <div>Nimi

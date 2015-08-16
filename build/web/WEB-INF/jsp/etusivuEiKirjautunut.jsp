@@ -14,7 +14,7 @@
     <body>
         <jsp:include page="header.jsp"></jsp:include>ß
         <div>
-            <a href="tankinhaku.html">Tankin haku</a>
+            <a href="TankkiServlet?hae=true">Tankin haku</a>
         </div>
         <div>
             <a href="TankkiServlet">Listaa tankit</a>

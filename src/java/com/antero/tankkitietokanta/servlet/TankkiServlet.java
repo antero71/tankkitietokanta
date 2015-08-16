@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import util.JSPUtil;
 import util.MyLogger;
 
 /**
@@ -60,35 +61,45 @@ public class TankkiServlet extends HttpServlet {
 
         logger.info("uid " + idParam);
 
-        RequestDispatcher dispatcher = null;
-
         String newParam = request.getParameter("new");
 
         logger.info("new " + newParam);
 
         String otsikko = request.getParameter("otsikko");
-        String otsikko2 = request.getParameter("otsikko2");
+        String toiminto = request.getParameter("toiminto");
 
         logger.info("otsikko " + otsikko);
 
         String poista = request.getParameter("poista");
 
-        if (newParam != null && newParam.equals("true") && kirjautunut != null) {
-            request.setAttribute("otsikko", "lisäys");
-            request.setAttribute("otsikko2", "insert");
-            dispatcher = request.getRequestDispatcher("WEB-INF/jsp/muokkaatankki.jsp");
-            dispatcher.forward(request, response);
+        String hae = request.getParameter("hae");
+
+        logger.info("hae " + hae);
+
+        String hakukentta = request.getParameter("hakukentta");
+
+        logger.info("hakukentän sisältö " + hakukentta);
+
+        if (hae != null && hae.equals("true")) {
+            JSPUtil.naytaJSP(request, response, "WEB-INF/jsp/haku.jsp");
             return;
         }
 
-        if (otsikko2 != null) {
+        if (newParam != null && newParam.equals("true") && kirjautunut != null) {
+            request.setAttribute("otsikko", "lisäys");
+            request.setAttribute("toiminto", "insert");
+            JSPUtil.naytaJSP(request, response, "WEB-INF/jsp/muokkaatankki.jsp");
+            return;
+        }
+
+        if (toiminto != null) {
             logger.info("otsikko annettu " + otsikko);
-            logger.info("otsikko2 " + otsikko2);
-            if (otsikko2.equals("insert")) {
+            logger.info("toiminto " + toiminto);
+            if (toiminto.equals("insert")) {
                 logger.info("lisäyshaara, seuraavaksi tankin lisäys sivun tiedoilla");
                 TankkiDao tankkiDao = new TankkiDaoImpl();
                 tankkiDao.lisaaTankki(muodostaTankki(request));
-            } else if (otsikko2.equals("update")) {
+            } else if (toiminto.equals("update")) {
                 logger.info("muokkaushaara, seuraavaksi tankin päivitys sivun tiedoilla");
                 TankkiDao tankkiDao = new TankkiDaoImpl();
                 tankkiDao.paivitaTankki(muodostaTankki(request));
@@ -111,20 +122,16 @@ public class TankkiServlet extends HttpServlet {
             Tankki t = tankkiDao.haeTankki(id);
 
             logger.info("tankki = " + t.getNimi());
-        
 
             request.setAttribute("tankki", t);
             request.setAttribute("otsikko", "muokkaus");
-            request.setAttribute("otsikko2", "update");
+            request.setAttribute("toiminto", "update");
 
             if (muokkaa.equals("true") && kirjautunut != null) {
-                dispatcher = request.getRequestDispatcher("WEB-INF/jsp/muokkaatankki.jsp");
+                JSPUtil.naytaJSP(request, response, "WEB-INF/jsp/muokkaatankki.jsp");
             } else {
-
-                dispatcher = request.getRequestDispatcher("WEB-INF/jsp/tankki.jsp");
+                JSPUtil.naytaJSP(request, response, "WEB-INF/jsp/tankki.jsp");
             }
-            /* Pyydetään dispatcher-oliota näyttämään JSP-sivunsa */
-            dispatcher.forward(request, response);
             if (t != null) {
                 return;
             }
@@ -138,14 +145,19 @@ public class TankkiServlet extends HttpServlet {
         }
 
         TankkiDao tankkiDao = new TankkiDaoImpl();
-        Collection<Tankki> tankit = tankkiDao.haeTankit();
+        Collection<Tankki> tankit = null;
+        logger.info("hakukentta ennen haarautumista "+hakukentta);
+        if (hakukentta != null) {
+            logger.info("haeNimella("+hakukentta+")");
+            tankit = tankkiDao.haeNimella(hakukentta);
+        } else {
+            logger.info("haeTankit()");
+            tankit = tankkiDao.haeTankit();
+        }
 
         request.setAttribute("tankit", tankit);
 
-        dispatcher = request.getRequestDispatcher("WEB-INF/jsp/tankkilista.jsp");
-        /* Pyydetään dispatcher-oliota näyttämään JSP-sivunsa */
-        dispatcher.forward(request, response);
-
+        JSPUtil.naytaJSP(request, response, "WEB-INF/jsp/tankkilista.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
