@@ -85,6 +85,6 @@
                 <a href="TankkiServlet?poista=true&uid=<c:out value="${tankki.uid}"/>">poista tankki</a>
             </div>
         </form>
-
+        <jsp:include page="virheet.jsp"></jsp:include>
     </body>
 </html>

@@ -17,7 +17,7 @@
             <a href="TankkiServlet?hae=true">Tankin haku</a>
         </div>
         <div>
-            <a href="TankkiServlet">Listaa tankit</a>
+            <a href="TankkiServlet?lista=true">Listaa tankit</a>
         </div>
     </body>
 </html>

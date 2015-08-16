@@ -277,7 +277,7 @@ public class TankkiDaoImpl implements TankkiDao {
         ResultSet tulokset = null;
         Collection<Tankki> tankit = new ArrayList<Tankki>();
         Tankki t = new Tankki();
-        StringBuffer sql = new StringBuffer("select uid,nimi,tyyppi,tykki,pituus");
+        StringBuffer sql = new StringBuffer("select distinct uid,nimi,tyyppi,tykki,pituus");
         sql.append(",leveys,korkeus,runko_etu");
         sql.append(",runko_sivu,runko_taka,torni_etu,torni_sivu,torni_taka,paino");
         sql.append(",moottori,teho,lisatietoja from tankki where nimi like ?");

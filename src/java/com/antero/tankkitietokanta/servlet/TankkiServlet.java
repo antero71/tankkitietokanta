@@ -98,7 +98,16 @@ public class TankkiServlet extends HttpServlet {
             if (toiminto.equals("insert")) {
                 logger.info("lisäyshaara, seuraavaksi tankin lisäys sivun tiedoilla");
                 TankkiDao tankkiDao = new TankkiDaoImpl();
-                tankkiDao.lisaaTankki(muodostaTankki(request));
+                Tankki t = muodostaTankki(request);
+                if (t.isKelvollinen()) {
+                    logger.info("tankki on ok, lisätään");
+                    tankkiDao.lisaaTankki(t);
+                } else {
+                    logger.info("tankin tiedot sivulla eivät ole ok, takaisin muokkaussivulle");
+                    request.setAttribute("tankki", t);
+                    JSPUtil.naytaJSP(request, response, "WEB-INF/jsp/muokkaatankki.jsp");
+                    return;
+                }
             } else if (toiminto.equals("update")) {
                 logger.info("muokkaushaara, seuraavaksi tankin päivitys sivun tiedoilla");
                 TankkiDao tankkiDao = new TankkiDaoImpl();
@@ -146,12 +155,22 @@ public class TankkiServlet extends HttpServlet {
 
         TankkiDao tankkiDao = new TankkiDaoImpl();
         Collection<Tankki> tankit = null;
-        logger.info("hakukentta ennen haarautumista "+hakukentta);
-        if (hakukentta != null) {
-            logger.info("haeNimella("+hakukentta+")");
+        logger.info("hakukentta ennen haarautumista " + hakukentta);
+        logger.info("session tehtyHaku " + session.getAttribute("tehtyHaku"));
+
+        String lista = request.getParameter("lista");
+
+        if (lista == null && (hakukentta != null || session.getAttribute("tehtyHaku") != null)) {
+
+            if (hakukentta == null) {
+                hakukentta = (String) session.getAttribute("tehtyHaku");
+            }
+            logger.info("haeNimella(" + hakukentta + ")");
+            session.setAttribute("tehtyHaku", hakukentta);
             tankit = tankkiDao.haeNimella(hakukentta);
         } else {
             logger.info("haeTankit()");
+            session.setAttribute("tehtyHaku", null);
             tankit = tankkiDao.haeTankit();
         }
 
