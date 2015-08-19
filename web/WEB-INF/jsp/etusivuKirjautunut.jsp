@@ -14,7 +14,7 @@
     <body>
         <jsp:include page="header.jsp"></jsp:include>
         <div>
-            <a href="tankinyllapito.html">Tankin lisäys</a>
+            <a href="TankkiServlet?new=true">Lisää uusi tankki</a>
         </div>
         <div>
             <a href="TankkiServlet?hae=true">Tankin haku</a>

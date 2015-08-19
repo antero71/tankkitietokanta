@@ -29,14 +29,13 @@ public class Tankki {
     private int paino;
     private String moottori;
     private int teho;
-    private String lisatietoja;  
+    private String lisatietoja;
     private boolean kelvollinen = true;
-    private HashMap<String,String> virheet = new HashMap<String, String>();
+    private HashMap<String, String> virheet = new HashMap<String, String>();
 
     public boolean isKelvollinen() {
         return kelvollinen;
     }
-
 
     public HashMap<String, String> getVirheet() {
         return virheet;
@@ -45,8 +44,7 @@ public class Tankki {
     public void setVirheet(HashMap<String, String> virheet) {
         this.virheet = virheet;
     }
-    
-    
+
     public int getUid() {
         return uid;
     }
@@ -60,10 +58,10 @@ public class Tankki {
     }
 
     public void setNimi(String nimi) {
-        if(tarkistaString("nimi",nimi)){
+        if (tarkistaString("nimi", nimi)) {
             this.nimi = nimi;
         }
-        
+
     }
 
     public String getTyyppi() {
@@ -71,10 +69,10 @@ public class Tankki {
     }
 
     public void setTyyppi(String tyyppi) {
-        if(tarkistaString("tyyppi", tyyppi)){
+        if (tarkistaString("tyyppi", tyyppi)) {
             this.tyyppi = tyyppi;
         }
-        
+
     }
 
     public String getTykki() {
@@ -82,10 +80,10 @@ public class Tankki {
     }
 
     public void setTykki(String tykki) {
-        if(tarkistaString("tykki", tykki)){
-             this.tykki = tykki;
+        if (tarkistaString("tykki", tykki)) {
+            this.tykki = tykki;
         }
-       
+
     }
 
     public int getPituus() {
@@ -93,10 +91,10 @@ public class Tankki {
     }
 
     public void setPituus(int pituus) {
-        if(tarkastaInt("pituus",pituus)){
-              this.pituus = pituus;
+        if (tarkastaInt("pituus", pituus)) {
+            this.pituus = pituus;
         }
-      
+
     }
 
     public int getLeveys() {
@@ -104,7 +102,9 @@ public class Tankki {
     }
 
     public void setLeveys(int leveys) {
-        this.leveys = leveys;
+        if (tarkastaInt("leveys", leveys)) {
+            this.leveys = leveys;
+        }
     }
 
     public int getKorkeus() {
@@ -112,7 +112,9 @@ public class Tankki {
     }
 
     public void setKorkeus(int korkeus) {
-        this.korkeus = korkeus;
+        if (tarkastaInt("korkeus", korkeus)) {
+            this.korkeus = korkeus;
+        }
     }
 
     public int getRunkoEtu() {
@@ -120,7 +122,9 @@ public class Tankki {
     }
 
     public void setRunkoEtu(int runkoEtu) {
-        this.runkoEtu = runkoEtu;
+        if (tarkastaInt("runkoEtu", runkoEtu)) {
+            this.runkoEtu = runkoEtu;
+        }
     }
 
     public int getRunkoSivu() {
@@ -128,7 +132,9 @@ public class Tankki {
     }
 
     public void setRunkoSivu(int runkoSivu) {
-        this.runkoSivu = runkoSivu;
+        if (tarkastaInt("runkoSivu", runkoSivu)) {
+            this.runkoSivu = runkoSivu;
+        }
     }
 
     public int getRunkoTaka() {
@@ -136,7 +142,9 @@ public class Tankki {
     }
 
     public void setRunkoTaka(int runkoTaka) {
-        this.runkoTaka = runkoTaka;
+        if (tarkastaInt("runkoTaka", runkoTaka)) {
+            this.runkoTaka = runkoTaka;
+        }
     }
 
     public int getTorniEtu() {
@@ -144,7 +152,9 @@ public class Tankki {
     }
 
     public void setTorniEtu(int torniEtu) {
-        this.torniEtu = torniEtu;
+        if (tarkastaInt("torniEtu", torniEtu)) {
+            this.torniEtu = torniEtu;
+        }
     }
 
     public int getTorniSivu() {
@@ -152,15 +162,20 @@ public class Tankki {
     }
 
     public void setTorniSivu(int torniSivu) {
-        this.torniSivu = torniSivu;
+        if (tarkastaInt("torniSivu", torniSivu)) {
+            this.torniSivu = torniSivu;
+        }
     }
 
     public int getTorniTaka() {
+
         return torniTaka;
     }
 
     public void setTorniTaka(int torniTaka) {
-        this.torniTaka = torniTaka;
+        if (tarkastaInt("torniTaka", torniTaka)) {
+            this.torniTaka = torniTaka;
+        }
     }
 
     public int getPaino() {
@@ -168,7 +183,9 @@ public class Tankki {
     }
 
     public void setPaino(int paino) {
-        this.paino = paino;
+        if (tarkastaInt("paino", paino)) {
+            this.paino = paino;
+        }
     }
 
     public String getMoottori() {
@@ -176,7 +193,9 @@ public class Tankki {
     }
 
     public void setMoottori(String moottori) {
-        this.moottori = moottori;
+        if (tarkistaString("moottori", moottori)) {
+            this.moottori = moottori;
+        }
     }
 
     public int getTeho() {
@@ -184,7 +203,9 @@ public class Tankki {
     }
 
     public void setTeho(int teho) {
-        this.teho = teho;
+        if (tarkastaInt("teho", teho)) {
+            this.teho = teho;
+        }
     }
 
     public String getLisatietoja() {
@@ -192,43 +213,46 @@ public class Tankki {
     }
 
     public void setLisatietoja(String lisatietoja) {
-        this.lisatietoja = lisatietoja;
+        if (tarkistaString("lisatietoja", lisatietoja)) {
+            this.lisatietoja = lisatietoja;
+        }
     }
 
     private boolean tarkistaString(String kentta, String sisalto) {
-        if(sisalto==null){
-            virheet.put(kentta,"nimi on null");
-            kelvollinen=false;
+        if (sisalto == null) {
+            virheet.put(kentta, "nimi on null");
+            kelvollinen = false;
+            return false;
         }
-            
-        if(sisalto.length()<1){
+
+        if (sisalto.length() < 1) {
             virheet.put(kentta, "nimen pitää olla pituudeltaan yli 0");
-            kelvollinen=false;
+            kelvollinen = false;
         }
-        
-        if(sisalto.contains(">") || sisalto.contains("<")){
+
+        if (sisalto.contains(">") || sisalto.contains("<")) {
             virheet.put(kentta, "> ja < on kiellettyjä merkkejä");
-            kelvollinen=false;
+            kelvollinen = false;
         }
         return kelvollinen;
     }
 
     private boolean tarkastaInt(String kentta, int arvo) {
-        if(arvo<0){
-            virheet.put(kentta,"arvo ei voi olla negatiivinen");
-            kelvollinen=false;
+        if (arvo < 0) {
+            virheet.put(kentta, "arvo ei voi olla negatiivinen");
+            kelvollinen = false;
         }
-        
-        if(arvo>100000){
+
+        if (arvo > 100000) {
             virheet.put(kentta, "arvon tulee olla alle 100000");
-            kelvollinen=false;
+            kelvollinen = false;
         }
         return kelvollinen;
     }
 
     public void lisaaVirhe(String kentta, String virhe) {
         virheet.put(kentta, virhe);
-        kelvollinen=false;
+        kelvollinen = false;
     }
 
 }

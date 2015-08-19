@@ -38,7 +38,7 @@ public class ValmistajaDaoImpl implements ValmistajaDao {
         ResultSet tulokset = null;
         Collection<Valmistaja> valmistajat = new ArrayList<Valmistaja>(50);
         StringBuffer sql = new StringBuffer("select uid,nimi,paikkakunta from valmistaja order by nimi");
-
+        logger.info("hakulause " + sql);
         try {
             kysely = con.prepareStatement(sql.toString());
             tulokset = kysely.executeQuery();
@@ -62,6 +62,7 @@ public class ValmistajaDaoImpl implements ValmistajaDao {
             }
 
         }
+        logger.info("valmistajia löytyi "+valmistajat.size());
         return valmistajat;
     }
 
@@ -89,7 +90,9 @@ public class ValmistajaDaoImpl implements ValmistajaDao {
 
             result = kysely.executeQuery();
 
-            id = result.getInt(1);
+            if (result.next()) {
+                id = result.getInt(1);
+            }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "sql lauseen suoritus epäonnistui", e);
         } finally {

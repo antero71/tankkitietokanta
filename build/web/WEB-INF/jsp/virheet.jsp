@@ -8,6 +8,6 @@
             <div class="alert alert-danger">Virhe! ${virheViesti}</div>
             
 </c:if>
- <c:forEach var="virheet" items="${tankki.virheet}">
-            <div class="tankki"></a>virheet.keySet</div>
+ <c:forEach var="virhe" items="${virheet}">
+            <div class="tankki"></a>${virhe.kuvaus}</div>
  </c:forEach>

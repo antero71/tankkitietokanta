@@ -244,12 +244,12 @@ public class TankkiServlet extends HttpServlet {
         }
         try {
             t.setKorkeus(Integer.parseInt(request.getParameter("korkeus")));
-        } catch (NullPointerException e) {
+        } catch (NumberFormatException e) {
             t.lisaaVirhe("korkeus", "korkeuden pitää olla numero");
         }
         try {
             t.setRunkoEtu(Integer.parseInt(request.getParameter("runkoetu")));
-        } catch (NullPointerException e) {
+        } catch (NumberFormatException e) {
             t.lisaaVirhe("runkoetu", "rungon etupanssaroinnin paksuus pitää olla numero");
         }
         try {

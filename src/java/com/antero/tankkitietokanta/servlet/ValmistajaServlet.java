@@ -10,6 +10,7 @@ import com.antero.tankkitietokanta.db.ValmistajaDaoImpl;
 import com.antero.tankkitietokanta.model.Valmistaja;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collection;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -47,6 +48,11 @@ public class ValmistajaServlet extends HttpServlet {
          
          ValmistajaDao dao = new ValmistajaDaoImpl();
          dao.lisaaValmistaja(v);
+         
+         Collection <Valmistaja> valmistajat = dao.haeValmistajat();
+         request.setAttribute("valmistajat", valmistajat);
+         
+         JSPUtil.naytaJSP(request, response, "WEB-INF/jsp/valmistajat.jsp");
          
     }
 

@@ -28,6 +28,10 @@
         <servlet-name>ValmistajaServlet</servlet-name>
         <servlet-class>com.antero.tankkitietokanta.servlet.ValmistajaServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MuokkaaValmistajaa</servlet-name>
+        <servlet-class>com.antero.tankkitietokanta.servlet.MuokkaaValmistajaa</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>*.htm</url-pattern>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>ValmistajaServlet</servlet-name>
         <url-pattern>/Valmistaja</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MuokkaaValmistajaa</servlet-name>
+        <url-pattern>/MuokkaaValmistajaa</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
