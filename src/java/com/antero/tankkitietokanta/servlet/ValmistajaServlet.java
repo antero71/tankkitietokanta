@@ -7,6 +7,7 @@ package com.antero.tankkitietokanta.servlet;
 
 import com.antero.tankkitietokanta.db.ValmistajaDao;
 import com.antero.tankkitietokanta.db.ValmistajaDaoImpl;
+import com.antero.tankkitietokanta.model.Kayttaja;
 import com.antero.tankkitietokanta.model.Valmistaja;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,6 +16,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import util.JSPUtil;
 
 /**
@@ -36,24 +38,38 @@ public class ValmistajaServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        
-         String lisaa = request.getParameter("lisaa");
-         
-         if(lisaa!=null && lisaa.equals("true")){
-             JSPUtil.naytaJSP(request, response, "WEB-INF/jsp/valmistaja.jsp");
-             return;
-         }
-         
-         Valmistaja v = muodostaValmistaja(request);
-         
-         ValmistajaDao dao = new ValmistajaDaoImpl();
-         dao.lisaaValmistaja(v);
-         
-         Collection <Valmistaja> valmistajat = dao.haeValmistajat();
-         request.setAttribute("valmistajat", valmistajat);
-         
-         JSPUtil.naytaJSP(request, response, "WEB-INF/jsp/valmistajat.jsp");
-         
+
+        HttpSession session = request.getSession();
+        Kayttaja kirjautunut = (Kayttaja) session.getAttribute("kirjautunut");
+        ValmistajaDao dao = new ValmistajaDaoImpl();
+        if (kirjautunut != null) {
+            //Koodia, jonka vain kirjautunut käyttäjä saa suorittaa
+
+            String lisaa = request.getParameter("lisaa");
+            String uid = request.getParameter("uid");
+            
+            if(uid!=null){
+                Valmistaja v = dao.haeValmistaja(Integer.parseInt(uid));
+                request.setAttribute("valmistaja", v);
+                 JSPUtil.naytaJSP(request, response, "WEB-INF/jsp/valmistaja.jsp");
+                return;         
+            }
+
+            if (lisaa != null && lisaa.equals("true")) {
+                JSPUtil.naytaJSP(request, response, "WEB-INF/jsp/valmistaja.jsp");
+                return;
+            }
+
+            Valmistaja v = muodostaValmistaja(request);
+
+            dao.lisaaValmistaja(v);
+        }
+        Collection<Valmistaja> valmistajat = dao.haeValmistajat();
+        request.setAttribute("valmistajat", valmistajat);
+
+        JSPUtil.naytaJSP(request, response, "WEB-INF/jsp/valmistajat.jsp");
+
+        //request.gets
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

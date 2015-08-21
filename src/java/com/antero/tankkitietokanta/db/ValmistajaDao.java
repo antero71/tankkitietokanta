@@ -17,5 +17,8 @@ public interface ValmistajaDao {
     public Collection<Valmistaja> haeValmistajat();
     public Collection<Valmistaja> haeValmistaja(String nimi);
     public int lisaaValmistaja(Valmistaja v);
+    public int paivitaValmistaja(Valmistaja v);
+    public void poistaValmistaja(int id);
+
     
 }

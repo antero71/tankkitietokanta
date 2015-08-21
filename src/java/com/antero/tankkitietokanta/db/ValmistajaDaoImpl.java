@@ -28,7 +28,35 @@ public class ValmistajaDaoImpl implements ValmistajaDao {
 
     @Override
     public Valmistaja haeValmistaja(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection con = TietokantaYhteys.annaYhteys();
+        PreparedStatement kysely = null;
+        ResultSet tulokset = null;
+        Valmistaja v = new Valmistaja();
+        StringBuffer sql = new StringBuffer("select uid,nimi,paikkakunta from valmistaja where uid=?");
+        logger.info("hakulause " + sql);
+        try {
+            kysely = con.prepareStatement(sql.toString());
+            kysely.setInt(1, id);
+            tulokset = kysely.executeQuery();
+            if (tulokset.next()) {
+
+                v.setUid(tulokset.getInt("uid"));
+                v.setNimi(tulokset.getString("nimi"));
+                v.setPaikkakunta(tulokset.getString("paikkakunta"));
+
+            }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "sql lauseen suoritus epäonnistui", e);
+        } finally {
+            try {
+                tulokset.close();
+                kysely.close();
+                con.close();
+            } catch (SQLException e) {
+            }
+
+        }
+        return v;
     }
 
     @Override
@@ -62,7 +90,7 @@ public class ValmistajaDaoImpl implements ValmistajaDao {
             }
 
         }
-        logger.info("valmistajia löytyi "+valmistajat.size());
+        logger.info("valmistajia löytyi " + valmistajat.size());
         return valmistajat;
     }
 
@@ -105,6 +133,67 @@ public class ValmistajaDaoImpl implements ValmistajaDao {
 
         }
         return id;
+    }
+
+    @Override
+    public int paivitaValmistaja(Valmistaja v) {
+        StringBuffer sql = new StringBuffer("update paikkakunta set nimi=?,paikkakunta=?");
+        sql.append(" where uid=?");
+
+        logger.info("sql " + sql);
+
+        Connection con = TietokantaYhteys.annaYhteys();
+        PreparedStatement kysely = null;
+        try {
+            kysely = con.prepareStatement(sql.toString());
+
+            kysely.setString(1, v.getNimi());
+            kysely.setString(2, v.getPaikkakunta());
+            kysely.setInt(3, v.getUid());
+
+            kysely.executeQuery();
+        } catch (SQLException ex) {
+            logger.log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                kysely.close();
+                con.close();
+            } catch (SQLException ex) {
+                logger.log(Level.SEVERE, null, ex);
+            }
+
+        }
+        return v.getUid();
+
+    }
+
+    @Override
+    public void poistaValmistaja(int id) {
+        String sql = "delete from valmistaja where uid=?";
+
+        logger.info("deletestring " + sql);
+        logger.info("poistettavan id " + id);
+
+        Connection con = TietokantaYhteys.annaYhteys();
+        PreparedStatement kysely = null;
+        try {
+            kysely = con.prepareStatement(sql);
+
+            kysely.setInt(1, id);
+
+            kysely.executeQuery();
+        } catch (SQLException ex) {
+            Logger.getLogger(TankkiDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                kysely.close();
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(TankkiDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+
     }
 
 }

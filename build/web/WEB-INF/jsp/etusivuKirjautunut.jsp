@@ -17,16 +17,11 @@
             <a href="TankkiServlet?new=true">Lisää uusi tankki</a>
         </div>
         <div>
-            <a href="TankkiServlet?hae=true">Tankin haku</a>
-        </div>
-        <div>
-            <a href="TankkiServlet?lista=true">Listaa tankit</a>
-        </div>
-        <div>
             <a href="Valmistaja?lisaa=true">Lisää valmistaja</a>
         </div>
         <div>
             <a href="tankinvalmistaja.html">Tankin valmistaja</a>
         </div>
+        <jsp:include page="etusivuYhteiset.jsp"></jsp:include>
     </body>
 </html>

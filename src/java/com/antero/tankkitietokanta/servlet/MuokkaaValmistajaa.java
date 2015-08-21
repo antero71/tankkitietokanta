@@ -7,18 +7,25 @@ package com.antero.tankkitietokanta.servlet;
 
 import com.antero.tankkitietokanta.db.ValmistajaDao;
 import com.antero.tankkitietokanta.db.ValmistajaDaoImpl;
+import com.antero.tankkitietokanta.model.Valmistaja;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collection;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import util.JSPUtil;
+import util.MyLogger;
 
 /**
  *
  * @author Antero Oikkonen
  */
 public class MuokkaaValmistajaa extends HttpServlet {
+
+    private static Logger logger = MyLogger.getLogger(TankkiServlet.class.getName());
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,14 +41,34 @@ public class MuokkaaValmistajaa extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         String idParam = request.getParameter("uid");
+        String nimi = request.getParameter("nimi");
+        String paikkakunta = request.getParameter("paikkakunta");
 
-        if(idParam!=null){
+        logger.info("idParam " + idParam);
+        logger.info("nimi " + nimi);
+        logger.info("paikkakunta " + paikkakunta);
         ValmistajaDao dao = new ValmistajaDaoImpl();
+        if (idParam != null) {
 
-        dao.haeValmistaja(idParam);
-        }else{
-            
+            Valmistaja v = dao.haeValmistaja(Integer.parseInt(idParam));
+            if (nimi != null && paikkakunta != null) {
+                v.setNimi(nimi);
+                v.setPaikkakunta(paikkakunta);
+                dao.paivitaValmistaja(v);
+            } else {
+                request.setAttribute("valmistaja", v);
+                JSPUtil.naytaJSP(request, response, "WEB-INF/jsp/valmistaja.jsp");
+                return;
+            }
+           // response.sendRedirect("Valmistaja");
+
+        } else {
+
         }
+        Collection<Valmistaja> valmistajat = dao.haeValmistajat();
+        request.setAttribute("valmistajat", valmistajat);
+
+        JSPUtil.naytaJSP(request, response, "WEB-INF/jsp/valmistajat.jsp");
 
     }
 
