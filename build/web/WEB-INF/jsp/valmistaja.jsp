@@ -14,6 +14,7 @@
     </head>
     <body>
         <form>
+            <input type="hidden" name="uid" value="<c:out value="${valmistaja.uid}"/>"></hidden>
             <div>
                 valmistaja
                 <input type="text" name="nimi" value="${valmistaja.nimi}">
@@ -24,7 +25,7 @@
             <div>
                 <input type="submit" value="Tallenna">
                 <input type="submit" value="Peru">
-                <a href="PoistaValmistaja&uid=<c:out value="${valmistaja.uid}"/>">poista valmistaja</a>
+                <a href="PoistaValmistaja?uid=<c:out value="${valmistaja.uid}"/>">poista valmistaja</a>
             </div>
         </form>
         <jsp:include page="virheet.jsp"></jsp:include>

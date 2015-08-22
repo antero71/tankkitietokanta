@@ -47,12 +47,12 @@ public class ValmistajaServlet extends HttpServlet {
 
             String lisaa = request.getParameter("lisaa");
             String uid = request.getParameter("uid");
-            
-            if(uid!=null){
+
+            if (uid != null) {
                 Valmistaja v = dao.haeValmistaja(Integer.parseInt(uid));
                 request.setAttribute("valmistaja", v);
-                 JSPUtil.naytaJSP(request, response, "WEB-INF/jsp/valmistaja.jsp");
-                return;         
+                JSPUtil.naytaJSP(request, response, "WEB-INF/jsp/valmistaja.jsp");
+                return;
             }
 
             if (lisaa != null && lisaa.equals("true")) {
@@ -61,8 +61,14 @@ public class ValmistajaServlet extends HttpServlet {
             }
 
             Valmistaja v = muodostaValmistaja(request);
-
-            dao.lisaaValmistaja(v);
+            if (v != null && v.getUid()<1) {
+                dao.lisaaValmistaja(v);
+            }else if(v!=null && v.getUid()>0){
+                response.sendRedirect("MuokkaaValmistajaa");
+            }else{
+                JSPUtil.naytaJSP(request, response, "WEB-INF/jsp/valmistaja.jsp");
+                return;
+            }
         }
         Collection<Valmistaja> valmistajat = dao.haeValmistajat();
         request.setAttribute("valmistajat", valmistajat);
@@ -113,9 +119,29 @@ public class ValmistajaServlet extends HttpServlet {
 
     private Valmistaja muodostaValmistaja(HttpServletRequest request) {
         Valmistaja v = new Valmistaja();
-        v.setNimi(request.getParameter("nimi"));
-        v.setPaikkakunta(request.getParameter("paikkakunta"));
-        return v;
-    }
+        String virheet = "";
+        String uid = request.getParameter("uid");
+        
+        if(uid!=null){
+            v.setUid(Integer.parseInt(uid));
+        }
+        
+        String nimi = request.getParameter("nimi");
+        if (nimi != null) {
+            v.setNimi(nimi);
+            virheet += "nimi ei saa olla tyhjä";
+        }
+        String paikkakunta = request.getParameter("paikkakunta");
+        if (paikkakunta != null) {
+            v.setPaikkakunta(paikkakunta);
+            virheet += " paikkakunta ei saa olla tyhjä";
+        }
+        if (virheet.equals("")) {
+            return v;
+        } else {
+            request.setAttribute("virheViesti", virheet);
+            return null;
+        }
 
+    }
 }

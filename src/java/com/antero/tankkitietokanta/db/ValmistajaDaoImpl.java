@@ -137,7 +137,7 @@ public class ValmistajaDaoImpl implements ValmistajaDao {
 
     @Override
     public int paivitaValmistaja(Valmistaja v) {
-        StringBuffer sql = new StringBuffer("update paikkakunta set nimi=?,paikkakunta=?");
+        StringBuffer sql = new StringBuffer("update valmistaja set nimi=?,paikkakunta=?");
         sql.append(" where uid=?");
 
         logger.info("sql " + sql);
