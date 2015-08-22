@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import util.JSPUtil;
 import util.MyLogger;
+import util.ValmistajaUtil;
 
 /**
  *
@@ -43,6 +44,8 @@ public class MuokkaaValmistajaa extends HttpServlet {
         String idParam = request.getParameter("uid");
         String nimi = request.getParameter("nimi");
         String paikkakunta = request.getParameter("paikkakunta");
+        
+         Valmistaja valmistajaSivulta = ValmistajaUtil.muodostaValmistaja(request);
 
         logger.info("idParam " + idParam);
         logger.info("nimi " + nimi);
@@ -54,8 +57,10 @@ public class MuokkaaValmistajaa extends HttpServlet {
             if (nimi != null && paikkakunta != null) {
                 v.setNimi(nimi);
                 v.setPaikkakunta(paikkakunta);
+                logger.info("paivitetaan valmistaja "+v);
                 dao.paivitaValmistaja(v);
             } else {
+                logger.info("nimi tai paikkakunta ei ollut annettu");
                 request.setAttribute("valmistaja", v);
                 JSPUtil.naytaJSP(request, response, "WEB-INF/jsp/valmistaja.jsp");
                 return;

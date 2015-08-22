@@ -4,7 +4,7 @@
     Author     : Antero Oikkonen
 --%>
 <div>
-    <a href="TankkiServlet?hae=true">Tankin haku</a>
+    <a href="TankinHaku?hae=true">Tankin haku</a>
 </div>
 <div>
     <a href="TankkiServlet?lista=true">Listaa tankit</a>

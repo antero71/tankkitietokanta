@@ -37,6 +37,11 @@ public class Valmistaja {
     public void setPaikkakunta(String paikkakunta) {
         this.paikkakunta = paikkakunta;
     }
+
+    @Override
+    public String toString() {
+        return "Valmistaja{uid=" + uid + ", nimi=" + nimi + ", paikkakunta=" + paikkakunta + '}';
+    }
     
     
 }

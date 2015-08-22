@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import util.JSPUtil;
+import util.ValmistajaUtil;
 
 /**
  *
@@ -60,7 +61,7 @@ public class ValmistajaServlet extends HttpServlet {
                 return;
             }
 
-            Valmistaja v = muodostaValmistaja(request);
+            Valmistaja v = ValmistajaUtil.muodostaValmistaja(request);
             if (v != null && v.getUid()<1) {
                 dao.lisaaValmistaja(v);
             }else if(v!=null && v.getUid()>0){
@@ -117,31 +118,5 @@ public class ValmistajaServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private Valmistaja muodostaValmistaja(HttpServletRequest request) {
-        Valmistaja v = new Valmistaja();
-        String virheet = "";
-        String uid = request.getParameter("uid");
-        
-        if(uid!=null){
-            v.setUid(Integer.parseInt(uid));
-        }
-        
-        String nimi = request.getParameter("nimi");
-        if (nimi != null) {
-            v.setNimi(nimi);
-            virheet += "nimi ei saa olla tyhjä";
-        }
-        String paikkakunta = request.getParameter("paikkakunta");
-        if (paikkakunta != null) {
-            v.setPaikkakunta(paikkakunta);
-            virheet += " paikkakunta ei saa olla tyhjä";
-        }
-        if (virheet.equals("")) {
-            return v;
-        } else {
-            request.setAttribute("virheViesti", virheet);
-            return null;
-        }
-
-    }
+    
 }

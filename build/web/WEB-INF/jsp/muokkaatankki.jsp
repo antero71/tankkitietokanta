@@ -78,6 +78,20 @@
 
                 lisätietoa
                 <input type="text" name="lisatietoja" value="<c:out value="${tankki.lisatietoja}"/>">
+
+
+            </div>
+            <div>
+                valitse valmistaja 
+                <label>Valmistaja</label>
+                <select name="valmistaja_id">
+                    <c:forEach var="valmistaja" items="${valmistajat}">
+                        <option value="${valmistaja.uid}">${valmistaja.nimi}</option>
+                    </c:forEach>
+                </select>
+                <input type="text" name="valmalkoi" value="<c:out value="${tankinvalmistaja.alkoi}"/>">
+                <input type="text" name="valmloppui" value="<c:out value="${tankinvalmistaja.loppui}"/>">
+
             </div>
             <div>
                 <input type="submit" value="Tallenna">

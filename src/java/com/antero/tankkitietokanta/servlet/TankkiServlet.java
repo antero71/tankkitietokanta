@@ -72,19 +72,6 @@ public class TankkiServlet extends HttpServlet {
 
         String poista = request.getParameter("poista");
 
-        String hae = request.getParameter("hae");
-
-        logger.info("hae " + hae);
-
-        String hakukentta = request.getParameter("hakukentta");
-
-        logger.info("hakukentän sisältö " + hakukentta);
-
-        if (hae != null && hae.equals("true")) {
-            JSPUtil.naytaJSP(request, response, "WEB-INF/jsp/haku.jsp");
-            return;
-        }
-
         if (newParam != null && newParam.equals("true") && kirjautunut != null) {
             request.setAttribute("otsikko", "lisäys");
             request.setAttribute("toiminto", "insert");
@@ -152,31 +139,17 @@ public class TankkiServlet extends HttpServlet {
             id = 0;
             logger.info("id:tä ei löytynyt");
         }
-
+        logger.info("haeTankit()");
+        //session.setAttribute("tehtyHaku", null);
         TankkiDao tankkiDao = new TankkiDaoImpl();
-        Collection<Tankki> tankit = null;
-        logger.info("hakukentta ennen haarautumista " + hakukentta);
-        logger.info("session tehtyHaku " + session.getAttribute("tehtyHaku"));
 
-        String lista = request.getParameter("lista");
+        Collection tankit = tankkiDao.haeTankit();
 
-        if (lista == null && (hakukentta != null || session.getAttribute("tehtyHaku") != null)) {
+        request.setAttribute(
+                "tankit", tankit);
 
-            if (hakukentta == null) {
-                hakukentta = (String) session.getAttribute("tehtyHaku");
-            }
-            logger.info("haeNimella(" + hakukentta + ")");
-            session.setAttribute("tehtyHaku", hakukentta);
-            tankit = tankkiDao.haeNimella(hakukentta);
-        } else {
-            logger.info("haeTankit()");
-            session.setAttribute("tehtyHaku", null);
-            tankit = tankkiDao.haeTankit();
-        }
-
-        request.setAttribute("tankit", tankit);
-
-        JSPUtil.naytaJSP(request, response, "WEB-INF/jsp/tankkilista.jsp");
+        JSPUtil.naytaJSP(request, response,
+                "WEB-INF/jsp/tankkilista.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -216,11 +189,13 @@ public class TankkiServlet extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
+
     }// </editor-fold>
 
     private Tankki muodostaTankki(HttpServletRequest request) {
 
-        logger.logp(Level.INFO, TankkiServlet.class.getName(), "muodostaTankki", "alussa");
+        logger.logp(Level.INFO, TankkiServlet.class
+                .getName(), "muodostaTankki", "alussa");
 
         Tankki t = new Tankki();
 
@@ -229,6 +204,7 @@ public class TankkiServlet extends HttpServlet {
         } catch (NumberFormatException e) {
             logger.info("uid:tä ei tullut sivulta, jatketaan muilla parametreillä");
         }
+
         t.setNimi(request.getParameter("nimi"));
         t.setTyyppi(request.getParameter("tyyppi"));
         t.setTykki(request.getParameter("tykki"));
@@ -237,57 +213,68 @@ public class TankkiServlet extends HttpServlet {
         } catch (NumberFormatException e) {
             t.lisaaVirhe("pituus", "pituuden pitää olla numero");
         }
+
         try {
             t.setLeveys(Integer.parseInt(request.getParameter("leveys")));
         } catch (NumberFormatException e) {
             t.lisaaVirhe("leveys", "leveyden pitää olla numero");
         }
+
         try {
             t.setKorkeus(Integer.parseInt(request.getParameter("korkeus")));
         } catch (NumberFormatException e) {
             t.lisaaVirhe("korkeus", "korkeuden pitää olla numero");
         }
+
         try {
             t.setRunkoEtu(Integer.parseInt(request.getParameter("runkoetu")));
         } catch (NumberFormatException e) {
             t.lisaaVirhe("runkoetu", "rungon etupanssaroinnin paksuus pitää olla numero");
         }
+
         try {
             t.setRunkoSivu(Integer.parseInt(request.getParameter("runkosivu")));
         } catch (NumberFormatException e) {
             t.lisaaVirhe("runkosivu", "rungon sivupanssaroinnin paksuus pitää olla numero");
         }
+
         try {
             t.setRunkoTaka(Integer.parseInt(request.getParameter("runkotaka")));
         } catch (NumberFormatException e) {
             t.lisaaVirhe("runkotaka", "rungon takapanssaroinnin paksuus pitää olla numero");
         }
+
         try {
             t.setTorniEtu(Integer.parseInt(request.getParameter("tornietu")));
         } catch (NumberFormatException e) {
             t.lisaaVirhe("tornietu", "tornin etupanssaroinnin paksuus pitää olla numero");
         }
+
         try {
             t.setTorniSivu(Integer.parseInt(request.getParameter("tornisivu")));
         } catch (NumberFormatException e) {
             t.lisaaVirhe("tornisivu", "tornin sivupanssaroinnin paksuus pitää olla numero");
         }
+
         try {
             t.setTorniTaka(Integer.parseInt(request.getParameter("tornitaka")));
         } catch (NumberFormatException e) {
             t.lisaaVirhe("tornitaka", "tornin takapanssaroinnin paksuus pitää olla numero");
         }
+
         try {
             t.setPaino(Integer.parseInt(request.getParameter("paino")));
         } catch (NumberFormatException e) {
             t.lisaaVirhe("paino", "painon pitää olla numero");
         }
+
         t.setMoottori(request.getParameter("moottori"));
         try {
             t.setTeho(Integer.parseInt(request.getParameter("teho")));
         } catch (NumberFormatException e) {
             t.lisaaVirhe("teho", "tehon pitää olla numero");
         }
+
         t.setLisatietoja(request.getParameter("lisatietoja"));
 
         return t;

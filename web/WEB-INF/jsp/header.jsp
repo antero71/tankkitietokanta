@@ -7,5 +7,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <div>
-    <a href="etusivu">Etusivu</a> <a href="TankkiServlet?hae=true">Tankin haku</a> <a href="login">kirjaudu sisään</a>
+    <a href="etusivu">Etusivu</a> <a href="TankinHaku?hae=true">Tankin haku</a> <a href="login">kirjaudu sisään</a>
 </div>
