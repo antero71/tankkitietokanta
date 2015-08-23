@@ -5,9 +5,23 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <script language="javascript" type="text/javascript">
+            function addtext() {
+                var newtext = document.myform.kaikkivalmistajat.value;
+
+                if (document.myform.placement[1].checked) {
+                    document.myform.valitutvalmistajat.value = "";
+                }
+                document.myform.valitutvalmistajat.value += newtext;
+            }
+
+            function siirra(elem, clor) {
+                elem.style.color = clor;
+            }
+        </script>
     </head>
     <body>
-          <div class="container">
+        <div class="container">
             <c:if test="${pageError != null}">
                 <div class="alert alert-danger">${pageError}</div>
             </c:if>
@@ -15,7 +29,7 @@
                 <div class="ilmoitus">${ilmoitus}</div>
             </c:if>
         </div>
-        <form>
+        <form name="myform">
             <div>
                 Tankin <c:out value="${otsikko}"/>
                 <input type="hidden" name="toiminto" value="<c:out value="${toiminto}"/>"></hidden>
@@ -83,18 +97,37 @@
 
 
             </div>
-            <div>
-                valitse valmistaja 
-                <label>Valmistaja</label>
-                <select name="valmistaja_id">
-                    <c:forEach var="valmistaja" items="${valmistajat}">
-                        <option value="${valmistaja.uid}">${valmistaja.nimi}</option>
-                    </c:forEach>
-                </select>
-                <input type="text" name="valmalkoi" value="<c:out value="${tankinvalmistaja.alkoi}"/>">
-                <input type="text" name="valmloppui" value="<c:out value="${tankinvalmistaja.loppui}"/>">
+            <!--
+       <div>
+          
+           <textarea rows="10" cols="50" name="kaikkivalmistajat" onselect="siirra(this.selected(),'red');">
+            <c:forEach var="valmistaja" items="${valmistajat}">
+                ${valmistaja.uid} ${valmistaja.nimi}
+            </c:forEach>
+        </textarea>
+        <input type="radio" name="placement" value="append" checked> Add to Existing Text<br>
+        <td><p><input type="radio" name="placement" value="replace"> Replace Existing Text<br>
+                <input type="button" value="Add New Text" onClick="addtext();"></p>
+        <textarea rows="10" cols="50" name="valitutvalmistajat">
+        </textarea>
 
-            </div>
+
+    </div>
+    <div>
+
+
+        valitse valmistaja 
+        <label>Valmistaja</label>
+        <select name="valmistaja_id">
+            <c:forEach var="valmistaja" items="${valmistajat}">
+                <option value="${valmistaja.uid}">${valmistaja.nimi}</option>
+            </c:forEach>
+        </select>
+        <input type="text" name="valmalkoi" value="<c:out value="${tankinvalmistaja.alkoi}"/>">
+        <input type="text" name="valmloppui" value="<c:out value="${tankinvalmistaja.loppui}"/>">
+
+    </div>
+            -->
             <div>
                 <input type="submit" value="Tallenna">
                 <input type="submit" value="Peru">

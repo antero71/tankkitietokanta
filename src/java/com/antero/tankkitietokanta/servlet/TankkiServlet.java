@@ -37,6 +37,9 @@ public class TankkiServlet extends HttpServlet {
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
+     * 
+     * Ilman kirjautumista näytetään staattinen tankki sivu. Kirjautunut käyttäjä pääsee
+     * muokkaukseen. Kirjautunut käyttäjä voi myös lisätä tankin.
      *
      * @param request servlet request
      * @param response servlet response
@@ -150,8 +153,6 @@ public class TankkiServlet extends HttpServlet {
             id = 0;
             logger.info("id:tä ei löytynyt");
         }
-        logger.info("haeTankit()");
-        //session.setAttribute("tehtyHaku", null);
         response.sendRedirect("TankkienListaus");
     }
 

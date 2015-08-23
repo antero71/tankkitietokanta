@@ -9,7 +9,6 @@
 
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <t:pohja pageTitle="Etusivu kirjautunut käyttäjä">
-        <jsp:include page="header.jsp"></jsp:include>
         <div>
             <a href="TankkiServlet?new=true">Lisää uusi tankki</a>
         </div>

@@ -13,29 +13,34 @@ import javax.servlet.http.HttpServletRequest;
  * @author Antero Oikkonen
  */
 public class ValmistajaUtil {
+
     public static Valmistaja muodostaValmistaja(HttpServletRequest request) {
         Valmistaja v = new Valmistaja();
         String virheet = "";
         String uid = request.getParameter("uid");
-        
-        if(uid!=null){
+
+        if (uid != null && !uid.equals("")) {
             v.setUid(Integer.parseInt(uid));
         }
-        
+
         String nimi = request.getParameter("nimi");
-        if (nimi != null) {
+        if (nimi != null && !nimi.equals("")) {
             v.setNimi(nimi);
+
+        } else {
             virheet += "nimi ei saa olla tyhjä";
         }
         String paikkakunta = request.getParameter("paikkakunta");
-        if (paikkakunta != null) {
+        if (paikkakunta != null && !paikkakunta.equals("")) {
             v.setPaikkakunta(paikkakunta);
+
+        } else {
             virheet += " paikkakunta ei saa olla tyhjä";
         }
         if (virheet.equals("")) {
             return v;
         } else {
-            request.setAttribute("virheViesti", virheet);
+            JSPUtil.asetaVirhe(request, virheet);
             return null;
         }
 

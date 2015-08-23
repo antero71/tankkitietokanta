@@ -147,6 +147,11 @@ public class ValmistajaDaoImpl implements ValmistajaDao {
         try {
             kysely = con.prepareStatement(sql.toString());
 
+            logger.info("db nimi "+v.getNimi());
+            logger.info("db paikkakunta "+v.getPaikkakunta());
+            logger.info("db uid "+v.getUid());
+            
+            
             kysely.setString(1, v.getNimi());
             kysely.setString(2, v.getPaikkakunta());
             kysely.setInt(3, v.getUid());

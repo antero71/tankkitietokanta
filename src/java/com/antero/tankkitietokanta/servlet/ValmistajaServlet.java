@@ -12,12 +12,14 @@ import com.antero.tankkitietokanta.model.Valmistaja;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Collection;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import util.JSPUtil;
+import util.MyLogger;
 import util.ValmistajaUtil;
 
 /**
@@ -25,6 +27,8 @@ import util.ValmistajaUtil;
  * @author Antero Oikkonen
  */
 public class ValmistajaServlet extends HttpServlet {
+
+    private static Logger logger = MyLogger.getLogger(ValmistajaServlet.class.getName());
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -49,7 +53,7 @@ public class ValmistajaServlet extends HttpServlet {
             String lisaa = request.getParameter("lisaa");
             String uid = request.getParameter("uid");
 
-            if (uid != null) {
+            if (uid != null && !uid.equals("")) {
                 Valmistaja v = dao.haeValmistaja(Integer.parseInt(uid));
                 request.setAttribute("valmistaja", v);
                 JSPUtil.naytaJSP(request, response, "WEB-INF/jsp/valmistaja.jsp");
@@ -62,11 +66,21 @@ public class ValmistajaServlet extends HttpServlet {
             }
 
             Valmistaja v = ValmistajaUtil.muodostaValmistaja(request);
-            if (v != null && v.getUid()<1) {
+            logger.info("valmistaja on " + v);
+            logger.info("request.getAttribute(\"pageError\") " + request.getAttribute("pageError"));
+            if (request.getAttribute("pageError") != null) {
+                request.setAttribute("valmistaja", v);
+                JSPUtil.naytaJSP(request, response, "WEB-INF/jsp/valmistaja.jsp");
+                return;
+            }
+            if (v == null) {
+                return;
+            }
+            if (v != null && v.getUid() < 1) {
                 dao.lisaaValmistaja(v);
-            }else if(v!=null && v.getUid()>0){
+            } else if (v != null && v.getUid() > 0) {
                 response.sendRedirect("MuokkaaValmistajaa");
-            }else{
+            } else {
                 JSPUtil.naytaJSP(request, response, "WEB-INF/jsp/valmistaja.jsp");
                 return;
             }
@@ -118,5 +132,4 @@ public class ValmistajaServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    
 }
