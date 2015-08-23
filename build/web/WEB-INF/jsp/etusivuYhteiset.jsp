@@ -7,7 +7,7 @@
     <a href="TankinHaku?hae=true">Tankin haku</a>
 </div>
 <div>
-    <a href="TankkiServlet?lista=true">Listaa tankit</a>
+    <a href="TankkienListaus">Listaa tankit</a>
 </div>
 <div>
     <a href="Valmistaja">Listaa valmistajat</a>

@@ -12,25 +12,25 @@ and open the template in the editor.
     <head>
         <title>${pageTitle}</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link href="css/bootstrap.css" rel="stylesheet">
-        <link href="css/bootstrap-theme.css" rel="stylesheet">
-        <link href="css/main.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/WEB-INF/css/bootstrap.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/WEB-INF/css/bootstrap-theme.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/WEB-INF/css/main.css" rel="stylesheet">
         <script src="http://code.jquery.com/jquery.js"></script>
-        <script src="js/bootstrap.min.js"></script>
+        <script src="${pageContext.request.contextPath}/WEB-INF/js/bootstrap.min.js"></script>
     </head>
     <body>
         <div class="navbar navbar-default">
             <div class="container">
                 <ul class="nav navbar-nav">
-                    <li class=""active"><a href="etusivu">Etusivu</a></li>
-                    <li class="active"><a href="Lista">Lista</a></li>
+                    <li class="active"><a href="etusivu">Etusivu</a></li>
+                    <li class="active"><a href="TankkienListaus">Listaa tankit</a></li>
                     <li class="active"><a href="TankinHaku?hae=true">Tankin haku</a></li>
                     <li class="active"><a href="Logout">Kirjaudu ulos</a></li>
                     <li class="active"><a href="login">kirjaudu sisään</a></li>
                 </ul>
             </div>
         </div>
-            
+            Web Application Context Path = ${pageContext.request.contextPath}
         <div class="container">
             <c:if test="${pageError != null}">
                 <div class="alert alert-danger">${pageError}</div>

@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import util.JSPUtil;
 import util.MyLogger;
 //import util.MyLogger;
 
@@ -72,7 +73,7 @@ public class LoginServlet extends HttpServlet {
                 response.sendRedirect("etusivu");
             } else {
                 if (first > 0) {
-                    request.setAttribute("virheViesti", "käyttäjätunnus tai salasana on virheellinen");
+                    JSPUtil.asetaVirhe(request, "käyttäjätunnus tai salasana on virheellinen");
                 }
                 first++;
                 //  logger.info("kayttaja " + k + ", login.jsp seuraavaksi");

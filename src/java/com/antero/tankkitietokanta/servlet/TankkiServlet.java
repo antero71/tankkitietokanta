@@ -117,20 +117,10 @@ public class TankkiServlet extends HttpServlet {
 
         int id;
         try {
-            logger.info("poista " + poista);
-            id = Integer.parseInt(idParam);
-            logger.info("id = " + id);
-            logger.info("poista " + poista);
-
-            if (poista != null && poista.equals("true")) {
-                TankkiDao tankkiDao = new TankkiDaoImpl();
-                tankkiDao.poistaTankki(id);
-            }
 
             Tankki t = haeTankki(idParam);
-
+            request.setAttribute("tankki", t);
             logger.info("tankki = " + t.getNimi());
-
             request.setAttribute("tankki", t);
             request.setAttribute("otsikko", "muokkaus");
             request.setAttribute("toiminto", "update");
@@ -143,7 +133,10 @@ public class TankkiServlet extends HttpServlet {
                 request.setAttribute("valmistajat", valmistajat);
 
                 JSPUtil.naytaJSP(request, response, "WEB-INF/jsp/muokkaatankki.jsp");
+
             } else {
+                Tankki t2 = haeTankki(idParam);
+                request.setAttribute("tankki", t2);
                 JSPUtil.naytaJSP(request, response, "WEB-INF/jsp/tankki.jsp");
             }
             if (t != null) {
@@ -159,15 +152,7 @@ public class TankkiServlet extends HttpServlet {
         }
         logger.info("haeTankit()");
         //session.setAttribute("tehtyHaku", null);
-        TankkiDao tankkiDao = new TankkiDaoImpl();
-
-        Collection tankit = tankkiDao.haeTankit();
-
-        request.setAttribute(
-                "tankit", tankit);
-
-        JSPUtil.naytaJSP(request, response,
-                "WEB-INF/jsp/tankkilista.jsp");
+        response.sendRedirect("TankkienListaus");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

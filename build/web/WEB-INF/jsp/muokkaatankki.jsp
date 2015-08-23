@@ -7,6 +7,14 @@
         <title>JSP Page</title>
     </head>
     <body>
+          <div class="container">
+            <c:if test="${pageError != null}">
+                <div class="alert alert-danger">${pageError}</div>
+            </c:if>
+            <c:if test="${ilmoitus != null}">
+                <div class="ilmoitus">${ilmoitus}</div>
+            </c:if>
+        </div>
         <form>
             <div>
                 Tankin <c:out value="${otsikko}"/>
