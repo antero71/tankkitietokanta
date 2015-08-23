@@ -32,5 +32,13 @@ public class JSPUtil {
             Logger.getLogger(JSPUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public static void asetaVirhe(HttpServletRequest request,String virheIlmoitus){
+        request.setAttribute("pageError",virheIlmoitus);
+    }
+    
+    public static void asetaIlmoitus(HttpServletRequest request,String ilmoitus){
+        request.setAttribute("ilmoitus",ilmoitus);
+    }
 
 }

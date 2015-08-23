@@ -7,8 +7,11 @@ package com.antero.tankkitietokanta.servlet;
 
 import com.antero.tankkitietokanta.db.TankkiDao;
 import com.antero.tankkitietokanta.db.TankkiDaoImpl;
+import com.antero.tankkitietokanta.db.ValmistajaDao;
+import com.antero.tankkitietokanta.db.ValmistajaDaoImpl;
 import com.antero.tankkitietokanta.model.Kayttaja;
 import com.antero.tankkitietokanta.model.Tankki;
+import com.antero.tankkitietokanta.model.Valmistaja;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Collection;
@@ -65,6 +68,16 @@ public class TankkiServlet extends HttpServlet {
 
         logger.info("new " + newParam);
 
+        String nayta = request.getParameter("nayta");
+
+        if (nayta != null && nayta.equals("true")) {
+
+            Tankki t = haeTankki(idParam);
+            request.setAttribute("tankki", t);
+            JSPUtil.naytaJSP(request, response, "WEB-INF/jsp/tankki.jsp");
+            return;
+        }
+
         String otsikko = request.getParameter("otsikko");
         String toiminto = request.getParameter("toiminto");
 
@@ -114,8 +127,7 @@ public class TankkiServlet extends HttpServlet {
                 tankkiDao.poistaTankki(id);
             }
 
-            TankkiDao tankkiDao = new TankkiDaoImpl();
-            Tankki t = tankkiDao.haeTankki(id);
+            Tankki t = haeTankki(idParam);
 
             logger.info("tankki = " + t.getNimi());
 
@@ -124,6 +136,12 @@ public class TankkiServlet extends HttpServlet {
             request.setAttribute("toiminto", "update");
 
             if (muokkaa.equals("true") && kirjautunut != null) {
+
+                ValmistajaDao dao = new ValmistajaDaoImpl();
+                Collection<Valmistaja> valmistajat = dao.haeValmistajat();
+
+                request.setAttribute("valmistajat", valmistajat);
+
                 JSPUtil.naytaJSP(request, response, "WEB-INF/jsp/muokkaatankki.jsp");
             } else {
                 JSPUtil.naytaJSP(request, response, "WEB-INF/jsp/tankki.jsp");
@@ -278,6 +296,11 @@ public class TankkiServlet extends HttpServlet {
         t.setLisatietoja(request.getParameter("lisatietoja"));
 
         return t;
+    }
+
+    private Tankki haeTankki(String idParam) {
+        TankkiDao tankkiDao = new TankkiDaoImpl();
+        return tankkiDao.haeTankki(Integer.parseInt(idParam));
     }
 
 }

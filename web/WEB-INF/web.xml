@@ -40,6 +40,10 @@
         <servlet-name>TankinHaku</servlet-name>
         <servlet-class>com.antero.tankkitietokanta.servlet.TankinHaku</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Logout</servlet-name>
+        <servlet-class>com.antero.tankkitietokanta.servlet.Logout</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>*.htm</url-pattern>
@@ -71,6 +75,10 @@
     <servlet-mapping>
         <servlet-name>TankinHaku</servlet-name>
         <url-pattern>/TankinHaku</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Logout</servlet-name>
+        <url-pattern>/Logout</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

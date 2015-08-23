@@ -6,12 +6,9 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
+
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<t:pohja pageTitle="Etusivu kirjautunut käyttäjä">
         <jsp:include page="header.jsp"></jsp:include>
         <div>
             <a href="TankkiServlet?new=true">Lisää uusi tankki</a>
@@ -23,5 +20,4 @@
             <a href="tankinvalmistaja.html">Tankin valmistaja</a>
         </div>
         <jsp:include page="etusivuYhteiset.jsp"></jsp:include>
-    </body>
-</html>
+</t:pohja>
