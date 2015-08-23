@@ -38,6 +38,8 @@ public class PoistaTankki extends HttpServlet {
         TankkiDao tankkiDao = new TankkiDaoImpl();
         tankkiDao.poistaTankki(Integer.parseInt(id));
 
+        response.sendRedirect("TankkienListaus");
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -15,8 +15,5 @@
         <div>
             <a href="Valmistaja?lisaa=true">Lisää valmistaja</a>
         </div>
-        <div>
-            <a href="tankinvalmistaja.html">Tankin valmistaja</a>
-        </div>
         <jsp:include page="etusivuYhteiset.jsp"></jsp:include>
 </t:pohja>

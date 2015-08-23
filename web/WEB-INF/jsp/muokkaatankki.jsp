@@ -131,7 +131,7 @@
             <div>
                 <input type="submit" value="Tallenna">
                 <input type="submit" value="Peru">
-                <a href="TankkiServlet?poista=true&uid=<c:out value="${tankki.uid}"/>">poista tankki</a>
+                <a href="PoistaTankki?uid=<c:out value="${tankki.uid}"/>">poista tankki</a>
             </div>
         </form>
         <jsp:include page="virheet.jsp"></jsp:include>
