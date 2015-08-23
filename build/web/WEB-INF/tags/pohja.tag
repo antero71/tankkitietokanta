@@ -12,11 +12,11 @@ and open the template in the editor.
     <head>
         <title>${pageTitle}</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link href="${pageContext.request.contextPath}/WEB-INF/css/bootstrap.css" rel="stylesheet">
-        <link href="${pageContext.request.contextPath}/WEB-INF/css/bootstrap-theme.css" rel="stylesheet">
-        <link href="${pageContext.request.contextPath}/WEB-INF/css/main.css" rel="stylesheet">
+        <link href="bootstrap.css" rel="stylesheet">
+        <link href="bootstrap-theme.css" rel="stylesheet">
+        <link href="main.css" rel="stylesheet">
         <script src="http://code.jquery.com/jquery.js"></script>
-        <script src="${pageContext.request.contextPath}/WEB-INF/js/bootstrap.min.js"></script>
+        <script src="bootstrap.min.js"></script>
     </head>
     <body>
         <div class="navbar navbar-default">
@@ -30,7 +30,7 @@ and open the template in the editor.
                 </ul>
             </div>
         </div>
-            Web Application Context Path = ${pageContext.request.contextPath}
+
         <div class="container">
             <c:if test="${pageError != null}">
                 <div class="alert alert-danger">${pageError}</div>
