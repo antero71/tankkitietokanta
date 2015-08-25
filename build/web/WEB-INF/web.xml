@@ -56,6 +56,10 @@
         <servlet-name>NaytaValmistaja</servlet-name>
         <servlet-class>com.antero.tankkitietokanta.servlet.NaytaValmistaja</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LisaaValmistaja</servlet-name>
+        <servlet-class>com.antero.tankkitietokanta.servlet.LisaaValmistaja</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>*.htm</url-pattern>
@@ -103,6 +107,10 @@
     <servlet-mapping>
         <servlet-name>NaytaValmistaja</servlet-name>
         <url-pattern>/NaytaValmistaja</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LisaaValmistaja</servlet-name>
+        <url-pattern>/LisaaValmistaja</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

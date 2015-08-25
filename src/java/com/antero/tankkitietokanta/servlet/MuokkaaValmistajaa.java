@@ -7,6 +7,7 @@ package com.antero.tankkitietokanta.servlet;
 
 import com.antero.tankkitietokanta.db.ValmistajaDao;
 import com.antero.tankkitietokanta.db.ValmistajaDaoImpl;
+import com.antero.tankkitietokanta.model.Kayttaja;
 import com.antero.tankkitietokanta.model.Valmistaja;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,6 +17,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import util.JSPUtil;
 import util.MyLogger;
 import util.ValmistajaUtil;
@@ -41,35 +43,49 @@ public class MuokkaaValmistajaa extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
+        HttpSession session = request.getSession();
+        Kayttaja kirjautunut = (Kayttaja) session.getAttribute("kirjautunut");
+        ValmistajaDao dao = new ValmistajaDaoImpl();
+
         String idParam = request.getParameter("uid");
         String nimi = request.getParameter("nimi");
         String paikkakunta = request.getParameter("paikkakunta");
-        
-         Valmistaja valmistajaSivulta = ValmistajaUtil.muodostaValmistaja(request);
 
         logger.info("idParam " + idParam);
         logger.info("nimi " + nimi);
         logger.info("paikkakunta " + paikkakunta);
-        ValmistajaDao dao = new ValmistajaDaoImpl();
-        if (idParam != null) {
+        logger.info("kirjautunut " + kirjautunut);
 
-            Valmistaja v = dao.haeValmistaja(Integer.parseInt(idParam));
-            if (nimi != null && paikkakunta != null) {
-                v.setNimi(nimi);
-                v.setPaikkakunta(paikkakunta);
-                logger.info("paivitetaan valmistaja "+v);
-                dao.paivitaValmistaja(v);
+        if (kirjautunut != null) {
+            if (idParam != null) {
+
+                Valmistaja v = dao.haeValmistaja(Integer.parseInt(idParam));
+                if (nimi != null && paikkakunta != null) {
+                    v.setNimi(nimi);
+                    v.setPaikkakunta(paikkakunta);
+                    logger.info("paivitetaan valmistaja " + v);
+                    dao.paivitaValmistaja(v);
+                } else {
+                    logger.info("nimi tai paikkakunta ei ollut annettu");
+                    request.setAttribute("valmistaja", v);
+                    JSPUtil.naytaJSP(request, response, "WEB-INF/jsp/valmistaja.jsp");
+                    return;
+                }
+                // response.sendRedirect("Valmistaja");
+
             } else {
-                logger.info("nimi tai paikkakunta ei ollut annettu");
-                request.setAttribute("valmistaja", v);
-                JSPUtil.naytaJSP(request, response, "WEB-INF/jsp/valmistaja.jsp");
-                return;
+
             }
-           // response.sendRedirect("Valmistaja");
-
         } else {
+            logger.info("seuraavaksi NaytaValmistaja");
+            request.setAttribute("uid", idParam);
 
+            session.setAttribute("uid", idParam);
+
+            response.sendRedirect("NaytaValmistaja");
+            return;
         }
+
         Collection<Valmistaja> valmistajat = dao.haeValmistajat();
         request.setAttribute("valmistajat", valmistajat);
 

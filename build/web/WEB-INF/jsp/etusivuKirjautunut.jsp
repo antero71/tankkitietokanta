@@ -9,11 +9,11 @@
 
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <t:pohja pageTitle="Etusivu kirjautunut käyttäjä">
-        <div>
-            <a href="TankkiServlet?new=true">Lisää uusi tankki</a>
-        </div>
-        <div>
-            <a href="Valmistaja?lisaa=true">Lisää valmistaja</a>
-        </div>
-        <jsp:include page="etusivuYhteiset.jsp"></jsp:include>
+    <div>
+        <a href="TankkiServlet?new=true">Lisää uusi tankki</a>
+    </div>
+    <div>
+        <a href="LisaaValmistaja">Lisää valmistaja</a>
+    </div>
+    <jsp:include page="etusivuYhteiset.jsp"></jsp:include>
 </t:pohja>

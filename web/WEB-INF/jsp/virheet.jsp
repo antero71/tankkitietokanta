@@ -4,6 +4,6 @@
     Author     : Antero Oikkonen
 --%>
 
- <c:if test="${virheViesti != null}">
-  <div class="alert alert-danger">Virhe! ${virheViesti}</div>
+<c:if test="${virheViesti != null}">
+    <div class="alert alert-danger">Virhe! ${virheViesti}</div>
 </c:if>
