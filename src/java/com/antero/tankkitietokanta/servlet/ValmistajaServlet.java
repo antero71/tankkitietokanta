@@ -47,11 +47,13 @@ public class ValmistajaServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Kayttaja kirjautunut = (Kayttaja) session.getAttribute("kirjautunut");
         ValmistajaDao dao = new ValmistajaDaoImpl();
+        String uid = request.getParameter("uid");
+
+       
         if (kirjautunut != null) {
             //Koodia, jonka vain kirjautunut käyttäjä saa suorittaa
 
             String lisaa = request.getParameter("lisaa");
-            String uid = request.getParameter("uid");
 
             if (uid != null && !uid.equals("")) {
                 Valmistaja v = dao.haeValmistaja(Integer.parseInt(uid));
@@ -70,7 +72,7 @@ public class ValmistajaServlet extends HttpServlet {
             logger.info("request.getAttribute(\"pageError\") " + request.getAttribute("pageError"));
             if (request.getAttribute("pageError") != null) {
                 request.setAttribute("valmistaja", v);
-                JSPUtil.naytaJSP(request, response, "WEB-INF/jsp/valmistaja.jsp");
+                JSPUtil.naytaJSP(request, response, "WEB-INF/jsp/valmistajaEiEdit.jsp");
                 return;
             }
             if (v == null) {
@@ -81,10 +83,10 @@ public class ValmistajaServlet extends HttpServlet {
             } else if (v != null && v.getUid() > 0) {
                 response.sendRedirect("MuokkaaValmistajaa");
             } else {
-                JSPUtil.naytaJSP(request, response, "WEB-INF/jsp/valmistaja.jsp");
+                JSPUtil.naytaJSP(request, response, "WEB-INF/jsp/valmistajaEiEdit.jsp");
                 return;
             }
-        }
+        } 
         Collection<Valmistaja> valmistajat = dao.haeValmistajat();
         request.setAttribute("valmistajat", valmistajat);
 

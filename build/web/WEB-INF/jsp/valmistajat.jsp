@@ -8,7 +8,7 @@
 <t:pohja pageTitle="Tankin tiedot">
     <h1>Valmistajalista</h1>
     <c:forEach var="valmistaja" items="${valmistajat}">
-        <div class="tankki"><a href="Valmistaja?uid=${valmistaja.uid}"><c:out value="${valmistaja.nimi}"/></a> <a href="MuokkaaValmistajaa?uid=${valmistaja.uid}">Muokkaa</a></div>
+        <div class="tankki"><a href="NaytaValmistaja?uid=${valmistaja.uid}"><c:out value="${valmistaja.nimi}"/></a> <a href="MuokkaaValmistajaa?uid=${valmistaja.uid}">Muokkaa</a></div>
     </c:forEach>
 </body>
 </t:pohja>
