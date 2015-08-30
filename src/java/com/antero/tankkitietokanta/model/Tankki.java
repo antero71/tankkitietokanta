@@ -5,6 +5,8 @@
  */
 package com.antero.tankkitietokanta.model;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 /**
@@ -32,7 +34,20 @@ public class Tankki {
     private String lisatietoja;
     private boolean kelvollinen = true;
     private HashMap<String, String> virheet = new HashMap<String, String>();
+    
+    private Collection<OsanValmistaja> osanValmistajat = new ArrayList();
 
+    public Collection<OsanValmistaja> getOsanValmistajat() {
+        return osanValmistajat;
+    }
+
+    public void setOsanValmistajat(Collection<OsanValmistaja> osanValmistajat) {
+        this.osanValmistajat = osanValmistajat;
+    }
+
+    
+    
+    
     public boolean isKelvollinen() {
         return kelvollinen;
     }

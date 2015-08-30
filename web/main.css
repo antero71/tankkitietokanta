@@ -12,3 +12,11 @@ h1 {
     color: orange;
     text-align: center;
 }
+
+oikea {
+    alignment-adjust: rigth;
+}
+
+vasen {
+    alignment-adjust: left;
+}

@@ -87,6 +87,14 @@ public class TankkiServlet extends HttpServlet {
         logger.info("otsikko " + otsikko);
 
         String poista = request.getParameter("poista");
+        
+        String valitut = request.getParameter("valitut");
+        
+        logger.info("valitut "+valitut);
+        
+        String kaikki = request.getParameter("kaikkivalmistajat");
+        
+        logger.info("kaikki "+kaikki);
 
         if (newParam != null && newParam.equals("true") && kirjautunut != null) {
             request.setAttribute("otsikko", "lisäys");
