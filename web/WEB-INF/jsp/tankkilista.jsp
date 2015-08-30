@@ -12,5 +12,4 @@
     <c:forEach var="tankki" items="${tankit}">
         <div class="tankki"><a href="TankkiServlet?uid=${tankki.uid}&nayta=true"><c:out value="${tankki.nimi}"/></a> <a href="TankkiServlet?uid=${tankki.uid}&muokkaa=true">Muokkaa</a></div>
     </c:forEach>
-    <a href="TankkiServlet?new=true">Lis‰‰ uusi tankki</a>
 </t:pohja>
