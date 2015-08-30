@@ -15,6 +15,7 @@ import com.antero.tankkitietokanta.model.Valmistaja;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Collection;
+import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -25,6 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import util.JSPUtil;
 import util.MyLogger;
+import util.PrintUtil;
 
 /**
  *
@@ -37,9 +39,10 @@ public class TankkiServlet extends HttpServlet {
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
-     * 
-     * Ilman kirjautumista näytetään staattinen tankki sivu. Kirjautunut käyttäjä pääsee
-     * muokkaukseen. Kirjautunut käyttäjä voi myös lisätä tankin.
+     *
+     * Ilman kirjautumista näytetään staattinen tankki sivu. Kirjautunut
+     * käyttäjä pääsee muokkaukseen. Kirjautunut käyttäjä voi myös lisätä
+     * tankin.
      *
      * @param request servlet request
      * @param response servlet response
@@ -58,6 +61,10 @@ public class TankkiServlet extends HttpServlet {
             // listaa tankit
 
         }
+
+        PrintUtil.printtaaEnum("parameters", request.getParameterNames());
+        PrintUtil.printtaaEnum("headers", request.getHeaderNames());
+        PrintUtil.printtaaEnum("attributes", request.getAttributeNames());
 
         String muokkaa = request.getParameter("muokkaa");
 
@@ -86,15 +93,19 @@ public class TankkiServlet extends HttpServlet {
 
         logger.info("otsikko " + otsikko);
 
-        String poista = request.getParameter("poista");
-        
-        String valitut = request.getParameter("valitut");
-        
-        logger.info("valitut "+valitut);
-        
-        String kaikki = request.getParameter("kaikkivalmistajat");
-        
-        logger.info("kaikki "+kaikki);
+       String[] valitut = request.getParameterValues("valitut");
+
+        if (valitut != null) {
+            for (int i = 0; i < valitut.length; i++) {
+                logger.info("valitut " + valitut[i]);
+            }
+        } else {
+            logger.info("valitut null");
+        }
+
+        String[] kaikki = request.getParameterValues("kaikkivalmistajat");
+
+        logger.info("kaikki " + kaikki);
 
         if (newParam != null && newParam.equals("true") && kirjautunut != null) {
             request.setAttribute("otsikko", "lisäys");
@@ -289,6 +300,18 @@ public class TankkiServlet extends HttpServlet {
 
         t.setLisatietoja(request.getParameter("lisatietoja"));
 
+        String[] valitut = request.getParameterValues("valitut");
+
+        if (valitut != null) {
+            for (int i = 0; i < valitut.length; i++) {
+                logger.info("valitut " + valitut[i]);
+            }
+        } else {
+            logger.info("valitut on null muodostaTankki metodissa");
+        }
+
+        logger.info("tankki sivulta otetuista tiedoista " + t);
+
         return t;
     }
 
@@ -296,5 +319,7 @@ public class TankkiServlet extends HttpServlet {
         TankkiDao tankkiDao = new TankkiDaoImpl();
         return tankkiDao.haeTankki(Integer.parseInt(idParam));
     }
+
+  
 
 }

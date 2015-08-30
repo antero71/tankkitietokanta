@@ -28,7 +28,7 @@
                 <div class="ilmoitus">${ilmoitus}</div>
             </c:if>
         </div>
-        <form name="tankki" id="tankki" method="GET">
+        <form name="tankki" id="tankki" method="PUT" action="TankkiServlet">
             <div>
                 Tankin <c:out value="${otsikko}"/>
                 <input type="hidden" name="toiminto" value="<c:out value="${toiminto}"/>"></hidden>

@@ -270,4 +270,11 @@ public class Tankki {
         kelvollinen = false;
     }
 
+    @Override
+    public String toString() {
+        return "Tankki{" + "uid=" + uid + ", nimi=" + nimi + ", tyyppi=" + tyyppi + ", tykki=" + tykki + ", pituus=" + pituus + ", leveys=" + leveys + ", korkeus=" + korkeus + ", runkoEtu=" + runkoEtu + ", runkoSivu=" + runkoSivu + ", runkoTaka=" + runkoTaka + ", torniEtu=" + torniEtu + ", torniSivu=" + torniSivu + ", torniTaka=" + torniTaka + ", paino=" + paino + ", moottori=" + moottori + ", teho=" + teho + ", lisatietoja=" + lisatietoja + ", kelvollinen=" + kelvollinen + ", virheet=" + virheet + ", osanValmistajat=" + osanValmistajat + '}';
+    }
+    
+    
+
 }
