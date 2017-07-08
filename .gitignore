@@ -1,1 +1,4 @@
 /private
+/web/META-INF/context.xml
+/web/META-INF/ei_gittiin.xml
+/nbproject/private
