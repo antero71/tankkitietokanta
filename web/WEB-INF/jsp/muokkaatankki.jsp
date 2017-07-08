@@ -112,7 +112,7 @@
               
 
                     <td>
-                        <select name="kaikkivalmistajat" id="kaikkivalmistajat" MULTIPLE width="200" size="10">
+                        <select name="kaikkivalmistajat" id="kaikkivalmistajat" width="200" size="10">
 
                             <c:forEach var="valmistaja" items="${valmistajat}">
                                 <option value="${valmistaja.uid}">${valmistaja.nimi}</option>
@@ -126,7 +126,7 @@
 
                     </td>
                     <td>
-                        <select name="valitut" id="valitut" MULTIPLE width="200" size="10">
+                        <select name="valitut" id="valitut" width="200" size="10">
                             <option value="">tyhjä</option>
                         </select>
                     </td>

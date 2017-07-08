@@ -93,7 +93,7 @@ public class TankkiServlet extends HttpServlet {
 
         logger.info("otsikko " + otsikko);
 
-       String[] valitut = request.getParameterValues("valitut");
+        String[] valitut = request.getParameterValues("valitut");
 
         if (valitut != null) {
             for (int i = 0; i < valitut.length; i++) {
@@ -319,7 +319,5 @@ public class TankkiServlet extends HttpServlet {
         TankkiDao tankkiDao = new TankkiDaoImpl();
         return tankkiDao.haeTankki(Integer.parseInt(idParam));
     }
-
-  
 
 }
